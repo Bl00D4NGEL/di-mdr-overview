@@ -1,0 +1,12 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "rules": {
+        "max-len": [1, 100, 2, {"ignoreComments": true}],
+        "indent": ["error", "tab"],
+        "space-before-blocks": ["error", "always"],
+        "brace-style": ["error", "stroustrup"]
+    }
+}

@@ -1,0 +1,48 @@
+<div style="display: flex; justify-content: space-between;">
+        <div>
+                <img class="big-thumb" src="/images/house-{{$ctrl.houseLower}}.png">
+        </div>
+        <div class="vertical-center">
+                <h1 class="{{$ctrl.house}}">House {{$ctrl.house}}</h1>
+                <h1>Game: {{$ctrl.game}}</h1>
+        </div>
+        <div>
+                <img class="big-thumb" ng-if="$ctrl.gameImageName" src="/images/game-{{$ctrl.gameImageName}}.png">
+        </div>
+</div>
+<table>
+        <tr>
+                <th ng-click="sortBy('role')">
+                        Role
+                        <span class="sortorder" ng-show="propertyName === 'role'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('name')">
+                        Name
+                        <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('rep')">
+                        Reputation
+                        <span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('posts')">
+                        Posts
+                        <span class="sortorder" ng-show="propertyName === 'posts'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('country')">
+                        Country
+                        <span class="sortorder" ng-show="propertyName === 'country'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('roster')">
+                        Roster
+                        <span class="sortorder" ng-show="propertyName === 'roster'" ng-class="{reverse: reverse}"></span>
+                </th>
+        </tr>
+        <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator">
+                <td>{{member.role}}</td>
+                <td>{{member.name}}</td>
+                <td>{{member.rep}}</td>
+                <td>{{member.posts}}</td>
+                <td>{{member.country}}</td>
+                <td>{{member.roster}}</td>
+        </tr>
+</table>
