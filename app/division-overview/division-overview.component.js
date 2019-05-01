@@ -7,8 +7,6 @@ angular.module('divisionOverview').component('divisionOverview', {
 		function DivisionOverviewController($http, $routeParams, $scope, Division) {
 			const self = this;
 			const roleValues = GetRoleValues();
-			console.log(roleValues);
-
 			$http.get('http://mdr.d-peters.com:2048/division/' + $routeParams.divisionId).then(function(response) {
 				const data = response.data;
 				let divisionObject = Division.create(data);

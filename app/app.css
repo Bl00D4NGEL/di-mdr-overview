@@ -8,7 +8,7 @@ table {
 }
 
 table tr {
-  padding-top: 10px;
+        padding-top: 10px;
 }
 
 table td {
@@ -65,6 +65,11 @@ table th {
   width: 35px;
   height: 35px;
   padding: 0;
+}
+
+.role-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .vertical-center {

@@ -189,6 +189,7 @@ app.factory('Team', ['Member', 'Roster', function(Member, Roster){
 
             Team.prototype.addRoster = function(rosterData) {
                 let roster = Roster.create(rosterData);
+                roster.team = this;
                 this.rosters.push(roster);
             }
 
@@ -246,16 +247,19 @@ app.factory('Roster', ['Member', function(Member) {
                 if(Array.isArray(rosterLeaderData)) {
                     rosterLeaderData = rosterLeaderData[0];
                 }
+                rosterLeaderData.roster = this;
                 this.rosterLeader = Member.create(rosterLeaderData);
             }
 
             Roster.prototype.addRosterMember = function(rosterMemberData) {
                 let member = Member.create(rosterMemberData);
+                member.roster = this;
                 this.members.push(member);
             }
 
             Roster.prototype.addSubMember = function(subMemberData) {
                 let sub = Member.create(subMemberData);
+                sub.roster = this;
                 this.subs.push(sub);
             }
 
@@ -339,9 +343,17 @@ app.factory('Member', [function() {
             }
 
             Member.prototype.formattedRosterName = function(){
-                let teamName = this.team.replace('Team ', '');
-                let rosterName = this.roster.rosterName.replace('Roster ', '');
-                return teamName + rosterName;
+                if(this.position === 'TL' || this.position === '2IC') {
+                    return this.team;
+                }
+                else if(this.position === 'DV' || this.position === 'DC') {
+                    return '';
+                }
+                else {
+                    let teamName = this.team.replace('Team ', '');
+                    let rosterName = this.roster.name.replace('Roster ', '');
+                    return teamName + rosterName;
+                }
             }
 
             Member.prototype.formattedPositionName = function(){  
@@ -360,6 +372,41 @@ app.factory('Member', [function() {
                 else {
                     return this.position;
                 }
+            }
+
+            Member.prototype.roleImageName = function() {
+                const roleMap = {
+                    "Leader": 'leader',
+                    "General": 'chancellor',
+                    "DC": 'general',
+                    "DV": 'commander',
+                    "TL": 'commander'
+                }
+                return roleMap[this.position];
+            }
+
+            Member.prototype.roleCharacter = function() {
+                const roleMap = {
+                    "Warden": '♦',
+                    "2IC": '♦',
+                    "Guardian": '+',
+                    "Champion": '+',
+                    "Companion": '+',
+                    "Mentor": '♥'
+                };
+                return roleMap[this.memberRank];
+            }
+
+            Member.prototype.roleCharacterColor = function() {
+                const roleMap = {
+                    "Warden": '#564062',
+                    "2IC": '#564062',
+                    "Guardian": '#b64240',
+                    "Champion": '#b64240',
+                    "Companion": '#b64240',
+                    "Mentor": '#b64240'
+                };
+                return roleMap[this.memberRank];
             }
 
             return new Member(data);

@@ -7,7 +7,7 @@
                 <h1>Game: {{$ctrl.division.game}}</h1>
         </div>
         <div>
-                <img class="big-thumb" ng-if="$ctrl.division.getGameImageName() !== undefined" src="/images/game-{{$ctrl.division.getGameImageName()}}.png">
+                <img class="big-thumb" ng-if="$ctrl.division.getGameImageName() !== undefined" ng-src="/images/game-{{$ctrl.division.getGameImageName()}}.png">
         </div>
 </div>
 <table>
@@ -32,17 +32,27 @@
                         Country
                         <span class="sortorder" ng-show="propertyName === 'country'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('roster')">
+                <th ng-click="sortBy(formattedRosterName())">
                         Roster
-                        <span class="sortorder" ng-show="propertyName === 'roster'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === formattedRosterName()" ng-class="{reverse: reverse}"></span>
                 </th>
         </tr>
         <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator">
-                <td>{{member.positionFormatted}}</td>
+                <td style="display: flex">
+                        <div style="padding-left: 10px; margin-right: 10px" class="role-icon">
+                                <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
+                                <span style="color: {{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined">
+                                        {{member.roleCharacter()}}
+                                </span>
+                        </div>
+                        <div>
+                                {{member.positionFormatted}}
+                        </div>
+                </td>
                 <td>{{member.name}}</td>
-                <td>{{member.repData.current}}</td>
-                <td>{{member.postData.current}}</td>
+                <td>{{member.repData.current}} (This month: {{member.repData.thisMonth}} / Last month: {{member.repData.lastMonth}})</td>
+                <td>{{member.postData.current}} (This month: {{member.postData.thisMonth}} / Last month: {{member.postData.lastMonth}})</td>
                 <td>{{member.country}}</td>
-                <td>{{member.roster}}</td>
+                <td>{{member.formattedRosterName()}}</td>
         </tr>
 </table>
