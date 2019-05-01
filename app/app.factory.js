@@ -408,7 +408,7 @@ app.factory('Member', [function() {
                     "Companion": '#b64240',
                     "Mentor": '#b64240'
                 };
-                return roleMap[this.memberRank];
+                return {color: roleMap[this.memberRank]};
             }
 
             return new Member(data);
@@ -454,8 +454,12 @@ function getTimeDifferenceInDays(milliseconds) {
 	let currentMilliseconds = date.valueOf();
 	currentMilliseconds /= 1000;
 	let secondsInDay = 60 * 60 * 24;
-	let days = (currentMilliseconds - milliseconds) / secondsInDay;
-	return parseInt(Math.round(days));
+    let days = (currentMilliseconds - milliseconds) / secondsInDay;
+    let parsed = parseInt(Math.round(days));
+    if(parsed <= 0) { // TODO: Fix
+        parsed = 1;
+    }
+	return parsed;
 }
 
 function getSdDataFromData(data) {
