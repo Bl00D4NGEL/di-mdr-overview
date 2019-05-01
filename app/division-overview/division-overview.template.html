@@ -1,32 +1,32 @@
 <div style="display: flex; justify-content: space-between;">
         <div>
-                <img class="big-thumb" src="/images/house-{{$ctrl.houseLower}}.png">
+                <img class="big-thumb" src="/images/house-{{$ctrl.division.house.toLowerCase()}}.png">
         </div>
         <div class="vertical-center">
-                <h1 class="{{$ctrl.house}}">House {{$ctrl.house}}</h1>
-                <h1>Game: {{$ctrl.game}}</h1>
+                <h1 class="{{$ctrl.division.house}}">House {{$ctrl.division.house}}</h1>
+                <h1>Game: {{$ctrl.division.game}}</h1>
         </div>
         <div>
-                <img class="big-thumb" ng-if="$ctrl.gameImageName" src="/images/game-{{$ctrl.gameImageName}}.png">
+                <img class="big-thumb" ng-if="$ctrl.division.getGameImageName() !== undefined" src="/images/game-{{$ctrl.division.getGameImageName()}}.png">
         </div>
 </div>
 <table>
         <tr>
-                <th ng-click="sortBy('role')">
+                <th ng-click="sortBy('positionFormatted')">
                         Role
-                        <span class="sortorder" ng-show="propertyName === 'role'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'positionFormatted'" ng-class="{reverse: reverse}"></span>
                 </th>
                 <th ng-click="sortBy('name')">
                         Name
                         <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('rep')">
+                <th ng-click="sortBy('repData.current')">
                         Reputation
-                        <span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'repData.current'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('posts')">
+                <th ng-click="sortBy('postData.current')">
                         Posts
-                        <span class="sortorder" ng-show="propertyName === 'posts'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'postData.current'" ng-class="{reverse: reverse}"></span>
                 </th>
                 <th ng-click="sortBy('country')">
                         Country
@@ -38,10 +38,10 @@
                 </th>
         </tr>
         <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator">
-                <td>{{member.role}}</td>
+                <td>{{member.positionFormatted}}</td>
                 <td>{{member.name}}</td>
-                <td>{{member.rep}}</td>
-                <td>{{member.posts}}</td>
+                <td>{{member.repData.current}}</td>
+                <td>{{member.postData.current}}</td>
                 <td>{{member.country}}</td>
                 <td>{{member.roster}}</td>
         </tr>

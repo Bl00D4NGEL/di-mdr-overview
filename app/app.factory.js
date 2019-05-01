@@ -59,7 +59,6 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                 if(divisionData === undefined) {
                     return;
                 }
-                console.log(divisionData.name, divisionData.color);
                 this.color = divisionData.color;
                 this.name = divisionData.name;
                 this.nameShort = this.name.replace("DI-", "");
@@ -128,6 +127,24 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                 this.teams.push(team);
             }
 
+            Division.prototype.getAllDivisionMembers = function() {
+                let members = [];
+                if(this.commander !== undefined) {
+                    members.push(this.commander);
+                }
+                if(this.vice !== undefined) {
+                    members.push(this.vice);
+                }
+                if(this.teams !== undefined) {
+                    for (let i = 0; i < this.teams.length; i++) {
+                        let team = this.teams[i];
+                        let teamMembers = team.getAllTeamMembers();
+                        members = members.concat(teamMembers);                        
+                    }
+                }
+                return members;
+            }
+
             return new Division(data);
         }
     }
@@ -173,6 +190,24 @@ app.factory('Team', ['Member', 'Roster', function(Member, Roster){
             Team.prototype.addRoster = function(rosterData) {
                 let roster = Roster.create(rosterData);
                 this.rosters.push(roster);
+            }
+
+            Team.prototype.getAllTeamMembers = function() {
+                let members = [];
+                if(this.teamLeader !== undefined) {
+                    members.push(this.teamLeader);
+                }
+                if(this["2IC"] !== undefined) {
+                    members.push(this["2IC"]);
+                }
+                if(this.rosters !== undefined) {
+                    for (let i = 0; i < this.rosters.length; i++) {
+                        let roster = this.rosters[i];
+                        let rosterMembers = roster.getAllRosterMembers();
+                        members = members.concat(rosterMembers);
+                    }
+                }
+                return members;
             }
             return new Team(data);
         }
@@ -222,6 +257,20 @@ app.factory('Roster', ['Member', function(Member) {
             Roster.prototype.addSubMember = function(subMemberData) {
                 let sub = Member.create(subMemberData);
                 this.subs.push(sub);
+            }
+
+            Roster.prototype.getAllRosterMembers = function() {
+                let members = [];
+                if(this.rosterLeader !== undefined) {
+                    members.push(this.rosterLeader);
+                }
+                if(this.members !== undefined) {
+                    members = members.concat(this.members);
+                }
+                if(this.subs !== undefined) {
+                    members = members.concat(this.subs);
+                }
+                return members;
             }
             return new Roster(data);
         }
@@ -275,6 +324,7 @@ app.factory('Member', [function() {
                 };
                 this.memberRank = memberData.member_rank;
                 this.position = memberData.position;
+                this.positionFormatted = this.formattedPositionName();
                 this.honorPoints = memberData.honor_points;
                 this.recruitmemberData = {
                     recruitedThisMonth: memberData.recruits_this_month,
@@ -284,6 +334,7 @@ app.factory('Member', [function() {
                     retainedLastMonth: memberData.recruits_retained_last_month,
                     qualityLastMonth: memberData.recruit_quality_last_month,
                 };
+                this.country = memberData.country;
                 this.house = memberData.house;
             }
 
@@ -293,31 +344,22 @@ app.factory('Member', [function() {
                 return teamName + rosterName;
             }
 
-            Member.prototype.fullPosition = function(){  
+            Member.prototype.formattedPositionName = function(){  
                 const roleMap = {
-                    'SUB': {
-                        name: 'Sub Player',
-                    },
-                    'TM': {
-                        name: 'Member',
-                    },
-                    'RL': {
-                        name: 'Roster Leader',
-                    },
-                    '2IC': {
-                        name: '2IC',
-                    },
-                    'TL': {
-                        name: 'Team Leader',
-                    },
-                    'DV': {
-                        name: 'Vice',
-                    },
-                    'DC': {
-                        name: 'Commander',
-                    },
+                    'SUB': 'Sub Player',
+                    'TM': 'Member',
+                    'RL': 'Roster Leader',
+                    '2IC': '2IC',
+                    'TL': 'Team Leader',
+                    'DV': 'Vice',
+                    'DC': 'Commander'
                 };
-                return roleMap[this.position];
+                if(roleMap[this.position] !== undefined) {
+                    return roleMap[this.position];
+                }
+                else {
+                    return this.position;
+                }
             }
 
             return new Member(data);
