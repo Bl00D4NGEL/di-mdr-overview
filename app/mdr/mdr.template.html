@@ -8,63 +8,63 @@
                         Division
                         <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('Game.name')">
+                <th ng-click="sortBy('game')">
                         Main game
-                        <span class="sortorder" ng-show="propertyName === 'Game.name'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'game'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('Count')">
+                <th ng-click="sortBy('memberData.total')">
                         Members
-                        <span class="sortorder" ng-show="propertyName === 'Count'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'memberData.total'" ng-class="{reverse: reverse}"></span>
                 </th>
                 <th ng-click="sortBy('rep')">
                         Reputation
                         <span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('Commander[0].member_name')">
+                <th ng-click="sortBy('commander.name')">
                         Commander
-                        <span class="sortorder" ng-show="propertyName === 'Commander[0].member_name'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'commander.name'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('Vice[0].member_name')">
+                <th ng-click="sortBy('vice.name')">
                         Vice
-                        <span class="sortorder" ng-show="propertyName === 'Vice[0].member_name'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'vice.name'" ng-class="{reverse: reverse}"></span>
                 </th>
         </tr>
         <tr ng-repeat="division in $ctrl.divisions | orderBy:propertyName:reverse">
-                <td class="{{division.house}}">
+                <td>
                         <div>
-                                <img class="div-icon" src="/images/house-{{division.houseLower}}.png">&nbsp;</img>
-                                <span>{{division.house}}</span>
+                                <img class="div-icon" src="/images/house-{{division.house.nameShort.toLowerCase()}}.png">&nbsp;</img>
+                                <span style="color: {{division.house.color}}">{{division.house.nameShort}}</span>
                         </div>
                 </td>
-                <td class="{{division.name}}">
+                <td>
                         <div style="display: flex; line-height: 3">
-                        <img class="div-icon" src="/images/div-{{division.imageName}}.svg">
-                                <a style="padding-left: 10px" href="#!/division/{{division.id}}">{{division.name}}</a>
-                        </img>
-                                <div ng-if="division.isSeed" style="padding-left: 5px; padding-top: 4px">
+                                <img class="div-icon" src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
+                                        <a style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
+                                </img>
+                                <div ng-if="division.isSeedDivision" style="padding-left: 5px; padding-top: 4px">
                                         <span title="Seed division">
                                                 <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 20px;">
                                                         <path fill="green" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"></path>
                                                 </svg>
                                         </span>
                                 </div>
-                                <div ng-if="division.isSuper" style="padding-left: 5px;">
-                                        <span class="super-division" title="Super division since {{division.sdDetails.sdSinceInDays}} days"></span>
+                                <div ng-if="division.isSuperDivision" style="padding-left: 5px;">
+                                        <span class="super-division" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
                                         
                                 </div>
-                                <div ng-if="division.isNotCompliant" style="padding-top: 10px; padding-left: 5px">
-                                        <span class="not-compliant" title="Not compliant since {{division.ncDetails.ncSinceInDays}} days"></span> 
+                                <div ng-if="!division.isCompliant" style="padding-top: 10px; padding-left: 5px">
+                                        <span class="not-compliant" title="Not compliant since {{division.ncData.ncSinceInDays}} days"></span> 
                                 </div>
                         </div>
                 </td>
                 <td>
-                        <img style="margin-right: 5px" ng-if="division.gameImageName" class="div-icon" src="/images/game-{{division.gameImageName}}.png">
-                        <span>{{division.Game.name}}</span>
+                        <img style="margin-right: 5px" ng-if="division.getGameImageName() !== undefined" class="div-icon" src="/images/game-{{division.getGameImageName()}}.png">
+                        <span>{{division.game}}</span>
 
                 </td>
-                <td>{{division.Count}}</td>
+                <td>{{division.memberData.total}}</td>
                 <td>{{division.rep}}</td>
-                <td>{{division.Commander[0].member_name}}</td>
-                <td>{{division.Vice[0].member_name}}</td>
+                <td>{{division.commander.name}}</td>
+                <td>{{division.vice.name}}</td>
         </tr>
 </table>

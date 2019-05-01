@@ -9,7 +9,7 @@ angular.module('divisionOverview').component('divisionOverview', {
 			const roleMap = GetRoleMap();
 			const roleValues = GetRoleValues(roleMap);
 
-			$http.get('http://localhost:2048/division/' + $routeParams.divisionId).then(function(response) {
+			$http.get('http://mdr.d-peters.com:2048/division/' + $routeParams.divisionId).then(function(response) {
 				const data = response.data;
 				self.house = data.House;
 				self.houseLower = data.House.toLowerCase();
@@ -79,6 +79,7 @@ angular.module('divisionOverview').component('divisionOverview', {
 		},
 	],
 });
+
 
 function GetHigherMembers(data) {
 	const higherMembers = [];
