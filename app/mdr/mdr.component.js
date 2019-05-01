@@ -17,7 +17,6 @@ angular.module('mdr').component('mdr', {
 					}
 					const house = mdrData[houseName];
 					let houseObject = House.create(house);
-					console.log(houseObject);
 
 					self.divisions = self.divisions.concat(houseObject.divisions);
 				}

@@ -244,11 +244,13 @@ app.factory('Roster', ['Member', function(Member) {
             }
 
             Roster.prototype.setRosterLeader = function(rosterLeaderData) {
-                if(Array.isArray(rosterLeaderData)) {
-                    rosterLeaderData = rosterLeaderData[0];
+                if(rosterLeaderData !== undefined) {
+                    if(Array.isArray(rosterLeaderData)) {
+                        rosterLeaderData = rosterLeaderData[0];
+                    }
+                    rosterLeaderData.roster = this;
+                    this.rosterLeader = Member.create(rosterLeaderData);
                 }
-                rosterLeaderData.roster = this;
-                this.rosterLeader = Member.create(rosterLeaderData);
             }
 
             Roster.prototype.addRosterMember = function(rosterMemberData) {

@@ -41,7 +41,7 @@
                 <td style="display: flex">
                         <div style="padding-left: 10px; margin-right: 10px" class="role-icon">
                                 <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
-                                <span style="color: {{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined">
+                                <span ng-style="color: {{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined">
                                         {{member.roleCharacter()}}
                                 </span>
                         </div>
