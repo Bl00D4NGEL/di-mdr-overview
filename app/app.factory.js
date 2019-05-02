@@ -59,6 +59,8 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                 if(divisionData === undefined) {
                     return;
                 }
+                this.vices = [];
+                this.commanders = [];
                 this.color = divisionData.color;
                 this.name = divisionData.name;
                 this.nameShort = this.name.replace("DI-", "");
@@ -70,8 +72,8 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                         this.addTeam(team);
                     }
                 }
-                this.setVice(divisionData.Vice);
-                this.setCommander(divisionData.Commander);
+                this.addVice(divisionData.Vice);
+                this.addCommander(divisionData.Commander);
                 this.isRepDrainEnabled = (divisionData.rep_drain_enabled === 1 ? true : false);
                 this.divisionColor = divisionData.color;
                 if(divisionData.Game !== undefined) {
@@ -92,18 +94,30 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                 }
             }
 
-            Division.prototype.setVice = function(viceData) {
-                if(Array.isArray(viceData)) {
-                    viceData = viceData[0];
+            Division.prototype.addVice = function(viceData) {
+                if(viceData !== undefined) {
+                    if(Array.isArray(viceData)) {
+                        let vices = Member.createBatch(viceData);
+                        this.vices = this.vices.concat(vices);
+                    }
+                    else{
+                        let vice = Member.create(viceData);
+                        this.vices.push(vice);
+                    }
                 }
-                this.vice = Member.create(viceData);
             }
 
-            Division.prototype.setCommander = function(commanderData) {
-                if(Array.isArray(commanderData)) {
-                    commanderData = commanderData[0];
+            Division.prototype.addCommander = function(commanderData) {
+                if(commanderData !== undefined) {
+                    if(Array.isArray(commanderData)) {
+                        let commanders = Member.createBatch(commanderData);
+                        this.commanders = this.commanders.concat(commanders);
+                    }
+                    else{
+                        let commander = Member.create(commanderData);
+                        this.commanders.push(commander);
+                    }
                 }
-                this.commander = Member.create(commanderData);
             }
 
             Division.prototype.getGameImageName = function() {
@@ -129,11 +143,11 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
 
             Division.prototype.getAllDivisionMembers = function() {
                 let members = [];
-                if(this.commander !== undefined) {
-                    members.push(this.commander);
+                if(this.commanders !== undefined) {
+                    members = members.concat(this.commanders);
                 }
-                if(this.vice !== undefined) {
-                    members.push(this.vice);
+                if(this.vices !== undefined) {
+                    members = members.concat(this.vices);
                 }
                 if(this.teams !== undefined) {
                     for (let i = 0; i < this.teams.length; i++) {
@@ -143,6 +157,21 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                     }
                 }
                 return members;
+            }
+
+            Division.prototype.getDivsionNcData = function() {
+                let ncData = [];
+                if(this.teams !== undefined) {
+                    for (let i = 0; i < this.teams.length; i++) {
+                        let team = this.teams[i];
+                        let teamNcData = team.ncData;
+                        if(teamNcData !== undefined) {
+                            teamNcData.cause = team.name;
+                            ncData.push(teamNcData);
+                        }
+                    }
+                }
+                return ncData;
             }
 
             return new Division(data);
@@ -161,8 +190,10 @@ app.factory('Team', ['Member', 'Roster', function(Member, Roster){
                         this.addRoster(roster);
                     }
                 }
-                this.set2IC(teamData["2IC"]);
-                this.setTeamLeader(teamData.TL);
+                this.teamLeaders = [];
+                this["2ICs"] = [];
+                this.add2IC(teamData["2IC"]);
+                this.addTeamLeader(teamData.TL);
                 this.name = teamData.name;
                 this.isCasual = teamData.isCasual;
                 this.memberData = Member.getMemberDataFromData(data);
@@ -173,18 +204,30 @@ app.factory('Team', ['Member', 'Roster', function(Member, Roster){
                 }
             }
 
-            Team.prototype.setTeamLeader = function(teamLeaderData) {
-                if(Array.isArray(teamLeaderData)) {
-                    teamLeaderData = teamLeaderData[0];
+            Team.prototype.addTeamLeader = function(teamLeaderData) {
+                if(teamLeaderData !== undefined) {
+                    if(Array.isArray(teamLeaderData)) {
+                        let teamLeaders = Member.createBatch(teamLeaderData);
+                        this.teamLeaders = this.teamLeaders.concat(teamLeaders);
+                    }
+                    else{
+                        let teamLeader = Member.create(teamLeaderData);
+                        this.teamLeaders.push(teamLeader);
+                    }
                 }
-                this.teamLeader = Member.create(teamLeaderData);
             }
 
-            Team.prototype.set2IC = function(secondInChargeData) {
-                if(Array.isArray(secondInChargeData)) {
-                    secondInChargeData = secondInChargeData[0];
+            Team.prototype.add2IC = function(secondInChargeData) {
+                if(secondInChargeData !== undefined) {
+                    if(Array.isArray(secondInChargeData)) {
+                        let twoICs = Member.createBatch(secondInChargeData);
+                        this["2ICs"] = this["2ICs"].concat(twoICs);
+                    }
+                    else{
+                        let twoIC = Member.create(secondInChargeData);
+                        this["2ICs"].push(twoIC);
+                    }
                 }
-                this["2IC"] = Member.create(secondInChargeData);
             }
 
             Team.prototype.addRoster = function(rosterData) {
@@ -195,11 +238,11 @@ app.factory('Team', ['Member', 'Roster', function(Member, Roster){
 
             Team.prototype.getAllTeamMembers = function() {
                 let members = [];
-                if(this.teamLeader !== undefined) {
-                    members.push(this.teamLeader);
+                if(this.teamLeaders !== undefined) {
+                    members = members.concat(this.teamLeaders);
                 }
-                if(this["2IC"] !== undefined) {
-                    members.push(this["2IC"]);
+                if(this["2ICs"] !== undefined) {
+                    members = members.concat(this["2ICs"]);
                 }
                 if(this.rosters !== undefined) {
                     for (let i = 0; i < this.rosters.length; i++) {
@@ -210,6 +253,21 @@ app.factory('Team', ['Member', 'Roster', function(Member, Roster){
                 }
                 return members;
             }
+
+            Team.prototype.getTeamNcData = function() {
+                let ncData = [];
+                if(this.rosters !== undefined) {
+                    for (let i = 0; i < this.rosters.length; i++) {
+                        let roster = this.rosters[i];
+                        let rosterNcData = roster.ncData;
+                        if(rosterNcData !== undefined) {
+                            rosterNcData.cause = roster.name;
+                            ncData.push(rosterNcData);
+                        }
+                    }
+                }
+                return ncData;
+            }
             return new Team(data);
         }
     };
@@ -219,6 +277,7 @@ app.factory('Roster', ['Member', function(Member) {
     return {
         create: function(data) {
             function Roster(rosterData) {
+                this.rosterLeaders = [];
                 this.members = [];
                 this.subs = [];
                 if(rosterData.Members !== undefined) {
@@ -233,7 +292,7 @@ app.factory('Roster', ['Member', function(Member) {
                         this.addSubMember(sub);
                     }
                 }
-                this.setRosterLeader(rosterData.RL);
+                this.addRosterLeader(rosterData.RL);
                 this.isCasual = rosterData.isCasual;
                 this.memberData = Member.getMemberDataFromData(rosterData);
                 this.name = rosterData.name;
@@ -243,13 +302,18 @@ app.factory('Roster', ['Member', function(Member) {
                 }
             }
 
-            Roster.prototype.setRosterLeader = function(rosterLeaderData) {
+            Roster.prototype.addRosterLeader = function(rosterLeaderData) {
                 if(rosterLeaderData !== undefined) {
                     if(Array.isArray(rosterLeaderData)) {
-                        rosterLeaderData = rosterLeaderData[0];
+                        let rosterLeaders = Member.createBatch(rosterLeaderData);
+                        rosterLeaders.map((x) => {x.roster = this;});
+                        this.rosterLeaders = this.rosterLeaders.concat(rosterLeaders);
                     }
-                    rosterLeaderData.roster = this;
-                    this.rosterLeader = Member.create(rosterLeaderData);
+                    else{
+                        let rosterLeader = Member.create(rosterLeaderData);
+                        rosterLeader.roster = this;
+                        this.rosterLeaders.push(rosterLeader);
+                    }
                 }
             }
 
@@ -267,8 +331,8 @@ app.factory('Roster', ['Member', function(Member) {
 
             Roster.prototype.getAllRosterMembers = function() {
                 let members = [];
-                if(this.rosterLeader !== undefined) {
-                    members.push(this.rosterLeader);
+                if(this.rosterLeaders !== undefined) {
+                    members = members.concat(this.rosterLeaders);
                 }
                 if(this.members !== undefined) {
                     members = members.concat(this.members);
@@ -413,6 +477,16 @@ app.factory('Member', [function() {
 
             return new Member(data);
         },
+        createBatch: function(batchData) {
+            let objects = [];
+            if(Array.isArray(batchData)) {
+                for (let i = 0; i < batchData.length; i++) {
+                    let data = batchData[i];
+                    objects.push(new this.create(data));
+                }
+            }
+            return objects;
+        },
         getMemberDataFromData: function(data) {
             return {
                 total: data.Count,
@@ -439,9 +513,9 @@ function getNcDataFromData(data) {
             let mappedData = {
                 reason: reason.reason,
                 isCausingUnit: (reason.causing_unit === 1 ? true : false),
-                drainRate: reason.drainRate
+                drainRate: reason.drain_rate,
             };
-            ncData.reasons.push(mappedData);   
+            ncData.reasons.push(mappedData);
         }
     }
     return ncData;

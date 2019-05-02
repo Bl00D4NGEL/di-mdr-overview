@@ -17,9 +17,13 @@ angular.module('divisionOverview').component('divisionOverview', {
 
 			$scope.propertyName = 'positionFormatted';
 			$scope.reverse = true;
+			$scope.sort_orderBy = "current";
 			$scope.sortBy = function(propertyName) {
-				$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+				if(propertyName === "rep" || propertyName === "post") {
+					propertyName = propertyName + "Data." + $scope.sort_orderBy;
+				}
 				$scope.propertyName = propertyName;
+				$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
 			};
 			$scope.rankComparator = function(v1, v2) {
 				// If we don't get strings, just compare by index

@@ -34,6 +34,11 @@ table th {
 }
 
 .super-division:after {
+        content: "\2655";
+        color: #a79a62;
+}
+
+.super-division-small:after {
   content: "\2655";
   color: #a79a62;
   font-size: 25px;
@@ -79,80 +84,12 @@ table th {
         flex-direction:column;
 }
 
+.vertical-center h1 {
+        padding: 0;
+        margin: 7px 0px;
+}
+
 .big-thumb {
         height: 200px;
         margin: 20px;
 }
-
-/* Credit to https://di.community/di_custom/mdr/public/css/style.css?ver=2.8 */
-.Trident {
-        color: #36597a;
-}
-
-.Dagger {
-        color: #7a3435;
-}
-
-.Javelin {
-        color: #50713f;
-}
-
-.Sabre {
-        color: #bdae6a;
-}
-
-.Longbow {
-        color: #5f3f71;
-}
-
-/* Ranks 
-  Credit to https://di.community/di_custom/mdr/public/css/filter.css
-*/
-.leader {
-        color: #c0392b
-}
-
-.chancellor {
-        color: #9b59b6
-}
-
-.general {
-        color: #3b97d3
-}
-
-.commander {
-        color: #d16e7d
-}
-
-.vice {
-        color: #aba88c
-}
-
-.captain {
-        color: #93906d
-}
-
-.member,
-.rl,
-.warden,
-.veteran,
-.elite,
-.mentor,
-.associate {
-        color: #51765d
-}
-
-.awayst {
-        color: #0d0d0d
-}
-
-.initiate,
-.initiate-star {
-        color: #636355
-}
-
-.applicant {
-        color: #7f7f7d
-}
-
-/* Ranks End */

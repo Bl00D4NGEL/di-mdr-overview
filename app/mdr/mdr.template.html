@@ -38,7 +38,7 @@
                 </td>
                 <td>
                         <div style="display: flex; line-height: 3">
-                                <img class="div-icon" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
+                                <img class="div-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
                                         <a ng-style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
                                 </img>
                                 <div ng-if="division.isSeedDivision" style="padding-left: 5px; padding-top: 4px">
@@ -49,8 +49,7 @@
                                         </span>
                                 </div>
                                 <div ng-if="division.isSuperDivision" style="padding-left: 5px;">
-                                        <span class="super-division" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
-                                        
+                                        <span class="super-division-small" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
                                 </div>
                                 <div ng-if="!division.isCompliant" style="padding-top: 10px; padding-left: 5px">
                                         <span class="not-compliant" title="Not compliant since {{division.ncData.ncSinceInDays}} days"></span> 
@@ -64,7 +63,7 @@
                 </td>
                 <td>{{division.memberData.total}}</td>
                 <td>{{division.rep}}</td>
-                <td>{{division.commander.name}}</td>
-                <td>{{division.vice.name}}</td>
+                <td>{{division.commanders[0].name}}</td>
+                <td>{{division.vices[0].name}}</td>
         </tr>
 </table>

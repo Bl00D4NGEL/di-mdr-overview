@@ -1,13 +1,54 @@
 <div style="display: flex; justify-content: space-between;">
         <div>
-                <img class="big-thumb" src="/images/house-{{$ctrl.division.house.toLowerCase()}}.png">
+                <img class="big-thumb" ng-src="/images/div-{{$ctrl.division.name.toLowerCase()}}.svg">
         </div>
-        <div class="vertical-center">
+        <div class="vertical-center" style="color: #ddd">
                 <h1 class="{{$ctrl.division.house}}">House {{$ctrl.division.house}}</h1>
+                <h1 style="display: flex">
+                        <div>Division {{$ctrl.division.name}}</div>
+                        <div ng-if="$ctrl.division.isSuperDivision">
+                                <span class="super-division" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
+                        </div>
+                        <div ng-if="$ctrl.division.isSeedDivision">
+                                <span title="Seed division">
+                                        <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 30px; padding-left: 5px">
+                                                <path fill="green" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"></path>
+                                        </svg>
+                                </span>
+                        </div>
+                </h1>
                 <h1>Game: {{$ctrl.division.game}}</h1>
+                <div ng-if="!$ctrl.division.isCompliant">
+                        <div>
+                                <h1 style="color: red">Division is not compliant!</h1>
+                                <div ng-repeat="reason in $ctrl.division.ncData.reasons" style="display: flex; margin-bottom: 10px">
+                                        <span title="Is causing non-compliance" class="not-compliant" ng-if="reason.isCausingUnit"></span>
+                                        <span style="padding-left: 5px">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+                                </div>
+                        </div>
+                        <div style="margin-bottom: 10px;" ng-repeat="causes in $ctrl.division.getDivsionNcData()">
+                                <hr>
+                                <h2 style="margin-top: 0px">{{causes.cause}}</h2>
+                                <div style="display: flex" ng-repeat="reason in causes.reasons">
+                                        <span title="Is causing non-compliance" class="not-compliant" ng-if="reason.isCausingUnit"></span>
+                                        <span style="padding-left: 5px">{{reason.reason}} (Drain: {{reason.drainRate}})</span><br>
+                                </div> 
+                        </div>
+                </div>  
+                <div>
+                        <label>Search for member: <input style="color: black" ng-model="search.name"></label>
+                </div>
+                <div>
+                        <span>Rep / Post order by</span><br>
+                        <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">By total</label><br>
+                        <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">By current month</label><br>
+                        <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">By last month</label><br>
+                </div>
         </div>
         <div>
                 <img class="big-thumb" ng-if="$ctrl.division.getGameImageName() !== undefined" ng-src="/images/game-{{$ctrl.division.getGameImageName()}}.png">
+                <img class="big-thumb" ng-if="$ctrl.division.getGameImageName() === undefined" ng-src="/images/house-{{$ctrl.division.house.toLowerCase()}}.png">
+
         </div>
 </div>
 <table>
@@ -20,13 +61,13 @@
                         Name
                         <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('repData.current')">
+                <th ng-click="sortBy('rep')">
                         Reputation
-                        <span class="sortorder" ng-show="propertyName === 'repData.current'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('postData.current')">
+                <th ng-click="sortBy('post')">
                         Posts
-                        <span class="sortorder" ng-show="propertyName === 'postData.current'" ng-class="{reverse: reverse}"></span>
+                        <span class="sortorder" ng-show="propertyName === 'post'" ng-class="{reverse: reverse}"></span>
                 </th>
                 <th ng-click="sortBy('country')">
                         Country
@@ -37,7 +78,7 @@
                         <span class="sortorder" ng-show="propertyName === formattedRosterName()" ng-class="{reverse: reverse}"></span>
                 </th>
         </tr>
-        <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator">
+        <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
                 <td style="display: flex">
                         <div style="padding-left: 10px; margin-right: 10px" class="role-icon">
                                 <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
