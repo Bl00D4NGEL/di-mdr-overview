@@ -11,8 +11,10 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
                 }
                 this.name = houseData.name;
                 this.nameShort = this.name.replace("House - ", "");
-                this.setHouseGeneral(houseData["House General"]);
-                this.setFirstCommander(houseData["First Commander"]);
+                this.houseGenerals = [];
+                this.firstCommanders = [];
+                this.addHouseGeneral(houseData["House General"]);
+                this.addFirstCommander(houseData["First Commander"]);
                 this.color = houseData.color;
                 this.memberData = Member.getMemberDataFromData(houseData);
                 this.posts = houseData.posts;
@@ -27,14 +29,30 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
                 }
             }
 
-            House.prototype.setFirstCommander = function(firstCommanderData) {
-                if(Array.isArray(firstCommanderData)) {
-                    firstCommanderData = firstCommanderData[0];
-                } 
-                this.firstCommander = Member.create(firstCommanderData);
+            House.prototype.addFirstCommander = function(firstCommanderData) {
+                if(firstCommanderData !== undefined) {
+                    if(Array.isArray(firstCommanderData)) {
+                        let firstCommanders = Member.createBatch(firstCommanderData);
+                        this.firstCommanders = this.firstCommanders.concat(firstCommanders);
+                    }
+                    else{
+                        let firstCommander = Member.create(firstCommanderData);
+                        this.firstCommanders.push(firstCommander);
+                    }
+                }
             }
 
-            House.prototype.setHouseGeneral = function(houseGeneralData) {
+            House.prototype.addHouseGeneral = function(houseGeneralData) {
+                if(houseGeneralData !== undefined) {
+                    if(Array.isArray(houseGeneralData)) {
+                        let houseGenerals = Member.createBatch(houseGeneralData);
+                        this.houseGenerals = this.houseGenerals.concat(houseGenerals);
+                    }
+                    else{
+                        let houseGeneral = Member.create(houseGeneralData);
+                        this.houseGenerals.push(houseGeneral);
+                    }
+                }
                 if(Array.isArray(houseGeneralData)) {
                     houseGeneralData = houseGeneralData[0];
                 } 
@@ -47,6 +65,38 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
                 this.divisions.push(div);
             }
 
+            House.prototype.getAllHouseMembers = function() {
+                let members = [];
+                if(this.firstCommanders !== undefined) {
+                    members = members.concat(this.firstCommanders);
+                }
+                if(this.houseGenerals !== undefined) {
+                    members = members.concat(this.houseGenerals);
+                }
+                if(this.divisions !== undefined) {
+                    for (let i = 0; i < this.divisions.length; i++) {
+                        let division = this.divisions[i];
+                        let divisionMembers = division.getAllDivisionMembers();
+                        members = members.concat(divisionMembers);                        
+                    }
+                }
+                return members;
+            }
+
+            House.prototype.getHouseNcData = function() {
+                let ncData = [];
+                if(this.divisions !== undefined) {
+                    for (let i = 0; i < this.divisions.length; i++) {
+                        let divison = this.divisions[i];
+                        let divisonNcData = divison.ncData;
+                        if(divisonNcData !== undefined) {
+                            divisonNcData.cause = divison.name;
+                            ncData.push(divisonNcData);
+                        }
+                    }
+                }
+                return ncData;
+            }
             return new House(data);
         }
     }   
@@ -430,7 +480,9 @@ app.factory('Member', [function() {
                     '2IC': '2IC',
                     'TL': 'Team Leader',
                     'DV': 'Vice',
-                    'DC': 'Commander'
+                    'DC': 'Commander',
+                    'HG': 'House General',
+                    'FC': 'First Commander'
                 };
                 if(roleMap[this.position] !== undefined) {
                     return roleMap[this.position];
@@ -474,7 +526,6 @@ app.factory('Member', [function() {
                 };
                 return {color: roleMap[this.memberRank]};
             }
-
             return new Member(data);
         },
         createBatch: function(batchData) {
@@ -496,6 +547,18 @@ app.factory('Member', [function() {
                 initiates: data["Initiate-Count"],
                 activeInLastFiveDays: data["Active-In-Last-5-Days-Count"]
             };
+        },
+        getRoleValues: function() {
+            const roleValues = {
+                'Sub Player': 0,
+                'Member': 1,
+                'Roster Leader': 2,
+                '2IC': 3,
+                'Team Leader': 4,
+                'Vice': 5,
+                'Commander': 6
+            };
+            return roleValues;
         }
     }
 }]);

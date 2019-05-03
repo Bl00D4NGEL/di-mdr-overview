@@ -11,6 +11,9 @@ angular.
 				when('/division/:divisionId', {
 					template: '<division-overview></division-overview>',
 				}).
+				when('/house/:houseId', {
+					template: '<house-overview></house-overview>'
+				}).
 				otherwise({
 					redirectTo: '/mdr',
 				});

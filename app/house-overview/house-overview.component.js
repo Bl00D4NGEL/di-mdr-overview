@@ -1,18 +1,16 @@
 'use strict';
 
-// Register `divisionOverview` component, along with its associated controller and template
-angular.module('divisionOverview').component('divisionOverview', {
-	templateUrl: 'division-overview/division-overview.template.html',
-	controller: ['$http', '$routeParams', '$scope', 'Division', 'Member',
-		function DivisionOverviewController($http, $routeParams, $scope, Division, Member) {
+angular.module('houseOverview').component('houseOverview', {
+	templateUrl: 'house-overview/house-overview.template.html',
+	controller: ['$http', '$routeParams', '$scope', 'House', 'Member',
+		function HouseOverviewController($http, $routeParams, $scope, House, Member) {
 			const self = this;
 			const roleValues = Member.getRoleValues();
-			$http.get('http://mdr.d-peters.com:2048/division/' + $routeParams.divisionId).then(function(response) {
+			$http.get('http://mdr.d-peters.com:2048/house/' + $routeParams.houseId).then(function(response) {
 				const data = response.data;
-				let divisionObject = Division.create(data);
-				divisionObject.house = data.House;
-				self.division = divisionObject;
-				self.members = self.division.getAllDivisionMembers();
+				let houseObject = House.create(data);
+				self.house = houseObject;
+				self.members = self.house.getAllHouseMembers();
 			});
 
 			$scope.propertyName = 'positionFormatted';
