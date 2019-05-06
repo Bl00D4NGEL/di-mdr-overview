@@ -1,6 +1,7 @@
 body {
-        padding: 20px;
+        padding: 20px 120px;
         background-color: #131313;
+        font-weight: 600;
 }
 
 table {
@@ -63,6 +64,14 @@ label > input[type=radio] {
   display: flex;
 }
 
+.checked:after {
+        content: "\2713";
+}
+
+.not-checked:after {
+        content: "\2613";
+}
+
 .dmg-inc-red {
         color: #b64240;
 }
@@ -71,15 +80,25 @@ label > input[type=radio] {
         color: #ddd;
 }
 
-.div-icon {
-  width: 35px;
-  height: 35px;
-  padding: 0;
+.tiny-icon {
+        width: 20px;
+        height: 20px;
 }
 
-.role-icon {
-  width: 20px;
-  height: 20px;
+.small-icon {
+        width: 35px;
+        height: 35px;
+        padding: 0;
+}
+
+.medium-icon {
+        height: 70px;
+        width: 60px;
+}
+
+.big-icon {
+        height: 200px;
+        margin: 20px;
 }
 
 .vertical-center {
@@ -89,32 +108,45 @@ label > input[type=radio] {
         flex-direction:column;
 }
 
-.vertical-center h1 {
-        padding: 0;
-        margin: 10px 0px;
+.warning-box {
+        width: 20px;
+        height: 33px;
+        background-color: orange;
+        color: white;
+        font-size: 20px;
+        align-items: center;
 }
 
-.big-thumb {
-        height: 200px;
-        margin: 20px;
+.error-box {
+        width: 20px;
+        height: 33px;
+        background-color: #b64240;
+        color: white;
+        font-size: 20px;
+        align-items: center;
+}
+
+.vertical-center h1 {
+        padding: 0;
+        margin: 15px 0px;
 }
 
 .trident-color {
-        color: #36597a;
+        color: #36597a !important;
 }
 
 .dagger-color {
-        color: #7a3435;
+        color: #7a3435 !important;
 }
 
 .javelin-color {
-        color: #50713F;
+        color: #50713F !important;
 }
 
 .sabre-color {
-        color: #bdae6a;
+        color: #bdae6a !important;
 }
 
 .longbow-color {
-        color: #5f3f71;
+        color: #5f3f71 !important;
 }

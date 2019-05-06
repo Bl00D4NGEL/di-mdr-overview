@@ -1,57 +1,80 @@
-<div style="display: flex; justify-content: space-between;">
-        <div class="vertical-center" style="color: #ddd">
-                <div style="margin-bottom: 20px">
-                        <label>Search for member: <input style="color: black" ng-model="search.name"></label>
+
+<div style="margin-top: 53px; margin-bottom: 80px">
+        <img src="/images/di-logo.png" alt="DI Community - A Professional Gaming & eSports Community">
+</div>
+<div style="display: flex; justify-content: space-between; height: 280px; margin-top: 60px; margin-bottom: 20px; color: #ddd">
+        <div>
+                <div style="margin-bottom: 25px">
+                        <label>
+                                <span style="float: left; margin-top: 13px; font-size: 18px; font-weight: bolder">Search for member</span>
+                                <input style="color: black; float: left; width: 45%; margin-left: 25px; margin-top: 11px" ng-model="search.name">
+                        </label>
                 </div>
                 <div>
-                        <span style="margin-bottom: 10px; font-size: 16px">Rep / Post order by</span><br>
-                        <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">By total</label><br>
-                        <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">By current month</label><br>
-                        <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">By last month</label><br>
+                        <span style="margin-bottom: 15px; font-size: 14px; font-weight: bold; width: 100%;; float: left">Rep / Post order by</span><br style="padding: 5px">
+                        <div>
+                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">By total</label><br>
+                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">By current month</label><br>
+                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">By last month</label><br>
+                        </div>
                 </div>
         </div>
-        <div class="vertical-center" style="color: #ddd">
-                <div style="display: flex; margin-bottom: 25px" class="{{$ctrl.division.house.toLowerCase()}}-color">
-                        <img class="div-icon" ng-src="/images/house-{{$ctrl.division.house.toLowerCase()}}.png">
-                        <h2 style="margin: 0">House {{$ctrl.division.house}}</h2>
+        <div style="margin-top: 5px; color: #ddd; font-size: 30px; display: none">
+                <div style="display: flex; margin-bottom: 5px">
+                        <img style="margin-top: 3px" class="medium-icon" ng-src="/images/house-{{$ctrl.division.house.toLowerCase()}}.png">
+                        <a style="padding-left: 5px" class="{{$ctrl.division.house.toLowerCase()}}-color" href="#!/house/{{$ctrl.division.house.toLowerCase()}}">
+                                <h1 style="font-weight: bold">House {{$ctrl.division.house}}</span>
+                        </a>
                 </div>
-                <div style="display: flex; margin-bottom: 25px; color: {{$ctrl.division.color}}">
-                        <img class="div-icon" ng-src="/images/div-{{$ctrl.division.name.toLowerCase()}}.svg">
-                        <h2 style="margin: 0">Division {{$ctrl.division.name}}</h2>
+                <div style="display: flex; margin-bottom: 5px; color: {{$ctrl.division.color}}; padding-left: 53px;">
+                        <img style="height: 50px; margin-top: 10px;" class="medium-icon" ng-src="/images/div-{{$ctrl.division.name.toLowerCase()}}.svg">
+                        <h3 style="padding-left: 12px">Division {{$ctrl.division.name}}</h2>
                         <div ng-if="$ctrl.division.isSuperDivision">
-                                <span class="super-division" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
+                                <h3 style="margin-left: 5px" class="super-division" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
                         </div>
-                        <div ng-if="$ctrl.division.isSeedDivision">
+                        <div ng-if="$ctrl.division.isSeedDivision" class="vertical-center" style="padding-top: 5px">
                                 <span title="Seed division">
-                                        <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 30px; padding-left: 5px">
+                                        <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 29px; padding-left: 5px">
                                                 <path fill="green" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"></path>
                                         </svg>
                                 </span>
                         </div>
                 </div>
-                <div style="display: flex; margin-bottom: 25px">
-                        <img class="div-icon" ng-if="$ctrl.division.getGameImageName() !== undefined" ng-src="/images/game-{{$ctrl.division.getGameImageName()}}.png">
-                        <img class="div-icon" ng-if="$ctrl.division.getGameImageName() === undefined" ng-src="/images/house-{{$ctrl.division.house.toLowerCase()}}.png">
-                        <h2 style="margin: 0">{{$ctrl.division.game}}</h2>
+                <div ng-if="$ctrl.division.game !== 'Various'" style="display: flex; margin-bottom: 25px; padding-left: 53px;">
+                        <img style="width: 40px; height: 47px; margin-top: 10px; margin-left: 10px" ng-if="$ctrl.division.getGameImageName() !== undefined" ng-src="/images/game-{{$ctrl.division.getGameImageName()}}.png">
+                        <h3 style="margin-left: 22px">{{$ctrl.division.game}}</h2>
                 </div>
         </div>
-        <div class="vertical-center" style="color: #ddd">
-                <div ng-if="!$ctrl.division.isCompliant">
+        <div>
+                <div ng-if="!$ctrl.division.isCompliant" style="margin-bottom: 30px">
                         <div>
-                                <h1 style="color: red">Division is not compliant!</h1>
-                                <div ng-repeat="reason in $ctrl.division.ncData.reasons" style="display: flex; margin-bottom: 10px">
-                                        <span title="Is causing non-compliance" class="not-compliant" ng-if="reason.isCausingUnit"></span>
-                                        <span style="padding-left: 5px">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+                                <h1 style="margin-top: 5px;font-weight: bold">Division not compliant since {{$ctrl.division.ncData.ncSinceInDays}} days</h1>
+                                <div ng-repeat="reason in $ctrl.division.ncData.reasons" style="display: lex; margin-bottom: 5px">
+                                        <div ng-if="reason.isCausingUnit" style="display: flex; width: 100%">
+                                                <span title="Is causing non-compliance" class="error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
+                                                <span style="padding-left: 10px; margin-top: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+                                        </div>
+                                        <div ng-if="!reason.isCausingUnit" style="border: 1px solid orange; display: flex; width: 100%">
+                                                <span class="warning-box vertical-center">!</span>
+                                                <span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+                                        </div>
                                 </div>
                         </div>
-                        <div style="margin-bottom: 10px;" ng-repeat="causes in $ctrl.division.getDivsionNcData()">
-                                <hr>
-                                <h2 style="margin-top: 0px">{{causes.cause}}</h2>
-                                <div style="display: flex" ng-repeat="reason in causes.reasons">
-                                        <span title="Is causing non-compliance" class="not-compliant" ng-if="reason.isCausingUnit"></span>
-                                        <span style="padding-left: 5px">{{reason.reason}} (Drain: {{reason.drainRate}})</span><br>
+                        <!--
+                        <div style="margin-bottom: 10px; padding-top: 30px;" ng-repeat="causes in $ctrl.division.getDivsionNcData()">
+                                <h3 style="margin-top: 0px; margin-bottom: 15px;">{{causes.cause}} not compliant since {{causes.ncSinceInDays}} days</h2>
+                                <div style="display: flex; margin-bottom: 5px" ng-repeat="reason in causes.reasons">
+                                        <div ng-if="reason.isCausingUnit" style="border: 1px solid red; display: flex; width: 100%">
+                                                <span title="Is causing non-compliance" class="error-box vertical-center">!</span>
+                                                <span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+                                        </div>
+                                        <div ng-if="!reason.isCausingUnit" style="border: 1px solid orange; display: flex; width: 100%">
+                                                <span class="warning-box vertical-center">!</span>
+                                                <span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+                                        </div>
                                 </div> 
                         </div>
+                        -->
                 </div>
         </div>  
         <!-- 
@@ -101,8 +124,16 @@
                         </div>
                 </td>
                 <td>{{member.name}}</td>
-                <td>{{member.repData.current}} (This month: {{member.repData.thisMonth}} / Last month: {{member.repData.lastMonth}})</td>
-                <td>{{member.postData.current}} (This month: {{member.postData.thisMonth}} / Last month: {{member.postData.lastMonth}})</td>
+                <td>
+                        <span ng-if="sort_orderBy === 'current'">{{member.repData.current}}</span>
+                        <span ng-if="sort_orderBy === 'thisMonth'">{{member.repData.thisMonth}}</span>
+                        <span ng-if="sort_orderBy === 'lastMonth'">{{member.repData.lastMonth}}</span>
+                </td>
+                <td>
+                        <span ng-if="sort_orderBy === 'current'">{{member.postData.current}}</span>
+                        <span ng-if="sort_orderBy === 'thisMonth'">{{member.postData.thisMonth}}</span>
+                        <span ng-if="sort_orderBy === 'lastMonth'">{{member.postData.lastMonth}}</span>
+                </td>
                 <td>{{member.country}}</td>
                 <td>{{member.formattedRosterName()}}</td>
         </tr>

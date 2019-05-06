@@ -1,22 +1,22 @@
-<div style="display: flex; justify-content: space-between;">
-        <div class="vertical-center" style="color: #ddd">
+<div style="display: flex; justify-content: space-between; color: #ddd">
+        <div class="vertical-center">
                 <div style="margin-bottom: 20px">
                         <label>Search for member: <input style="color: black" ng-model="search.name"></label>
                 </div>
                 <div>
-                        <span style="margin-bottom: 10px; font-size: 16px">Rep / Post order by</span><br>
+                        <span style="margin-bottom: 10px; font-size: 16px">Rep / Post display</span><br>
                         <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">By total</label><br>
                         <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">By current month</label><br>
                         <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">By last month</label><br>
                 </div>
         </div>        
-        <div class="vertical-center" style="color: #ddd">
+        <div class="vertical-center">
                 <div class="vertical-center" style="display: flex; margin-bottom: 25px" class="{{$ctrl.house.name.toLowerCase()}}-color">
-                        <img class="big-thumb" ng-src="/images/house-{{$ctrl.house.name.toLowerCase()}}.png">
-                        <h1 style="margin: 0">House {{$ctrl.house.name}}</h1>
+                        <img class="big-icon" ng-src="/images/house-{{$ctrl.house.name.toLowerCase()}}.png">
+                        <h1 style="margin: 0; color: {{$ctrl.house.color}}">House {{$ctrl.house.name}}</h1>
                 </div>
         </div>
-        <div class="vertical-center" style="color: #ddd">
+        <div class="vertical-center">
                 <div ng-if="!$ctrl.house.isCompliant">
                         <div>
                                 <h1 style="color: red">House is not compliant!</h1>
@@ -58,16 +58,29 @@
                         Country
                         <span class="sortorder" ng-show="propertyName === 'country'" ng-class="{reverse: reverse}"></span>
                 </th>
+                <th ng-click="sortBy('division')">
+                        Division
+                        <span class="sortorder" ng-show="propertyName === 'division'" ng-class="{reverse: reverse}"></span>
+                </th>
                 <th ng-click="sortBy(formattedRosterName())">
                         Roster
                         <span class="sortorder" ng-show="propertyName === formattedRosterName()" ng-class="{reverse: reverse}"></span>
                 </th>
+                <th ng-click="sortBy('tsData.isTsLinked')">
+                        Ts Linked
+                        <span class="sortorder" ng-show="propertyName === 'tsData.isTsLinked'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('honorPoints')">
+                        Honor Points
+                        <span class="sortorder" ng-show="propertyName === 'honorPoints'" ng-class="{reverse: reverse}"></span>
+                </th>
+
         </tr>
         <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
                 <td style="display: flex">
-                        <div style="padding-left: 10px; margin-right: 10px" class="role-icon">
+                        <div style="padding-left: 10px; margin-right: 10px" class="tiny-icon">
                                 <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
-                                <span ng-style="{{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined">
+                                <span ng-style="{{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined && member.roleImageName() === undefined">
                                         {{member.roleCharacter()}}
                                 </span>
                         </div>
@@ -76,9 +89,30 @@
                         </div>
                 </td>
                 <td>{{member.name}}</td>
-                <td>{{member.repData.current}} (This month: {{member.repData.thisMonth}} / Last month: {{member.repData.lastMonth}})</td>
-                <td>{{member.postData.current}} (This month: {{member.postData.thisMonth}} / Last month: {{member.postData.lastMonth}})</td>
+                <td>
+                        <span ng-if="sort_orderBy === 'current'">{{member.repData.current}}</span>
+                        <span ng-if="sort_orderBy === 'thisMonth'">{{member.repData.thisMonth}}</span>
+                        <span ng-if="sort_orderBy === 'lastMonth'">{{member.repData.lastMonth}}</span>
+                </td>
+                <td>
+                        <span ng-if="sort_orderBy === 'current'">{{member.postData.current}}</span>
+                        <span ng-if="sort_orderBy === 'thisMonth'">{{member.postData.thisMonth}}</span>
+                        <span ng-if="sort_orderBy === 'lastMonth'">{{member.postData.lastMonth}}</span>
+                </td>
                 <td>{{member.country}}</td>
+                <td>
+                        <div style="display: flex" ng-if="member.division !== undefined">
+                                <a style="color: {{member.divisionColor}}" href="#!/division/{{member.divisionShort}}">
+                                        <img class="tiny-icon" ng-src="/images/div-{{member.divisionShort.toLowerCase()}}.svg">
+                                        {{member.division}}
+                                </a>
+                        </div>
+                </td>
                 <td>{{member.formattedRosterName()}}</td>
+                <td>
+                        <span ng-if="member.tsData.isTsLinked" class="checked"></span>
+                        <span ng-if="!member.tsData.isTsLinked" class="not-checked"></span>
+                </td>
+                <td>{{member.honorPoints}}</td>
         </tr>
 </table>

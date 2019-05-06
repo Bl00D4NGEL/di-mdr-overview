@@ -53,10 +53,6 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
                         this.houseGenerals.push(houseGeneral);
                     }
                 }
-                if(Array.isArray(houseGeneralData)) {
-                    houseGeneralData = houseGeneralData[0];
-                } 
-                this.houseGeneral = Member.create(houseGeneralData);
             }
 
             House.prototype.addDivision = function(divisionData) {
@@ -67,18 +63,22 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
 
             House.prototype.getAllHouseMembers = function() {
                 let members = [];
-                if(this.firstCommanders !== undefined) {
-                    members = members.concat(this.firstCommanders);
-                }
-                if(this.houseGenerals !== undefined) {
-                    members = members.concat(this.houseGenerals);
-                }
+                let divisionMap = {};
                 if(this.divisions !== undefined) {
                     for (let i = 0; i < this.divisions.length; i++) {
                         let division = this.divisions[i];
+                        divisionMap[division.nameShort] = division;
                         let divisionMembers = division.getAllDivisionMembers();
-                        members = members.concat(divisionMembers);                        
+                        members = members.concat(divisionMembers);
                     }
+                }
+                if(this.firstCommanders !== undefined) {
+                    this.firstCommanders.map((x) => {x.divisionColor = divisionMap[x.divisionShort].color});
+                    members = members.concat(this.firstCommanders);
+                }
+                if(this.houseGenerals !== undefined) {
+                    this.houseGenerals.map((x) => {x.divisionColor = divisionMap[x.divisionShort].color});
+                    members = members.concat(this.houseGenerals);
                 }
                 return members;
             }
@@ -90,7 +90,7 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
                         let divison = this.divisions[i];
                         let divisonNcData = divison.ncData;
                         if(divisonNcData !== undefined) {
-                            divisonNcData.cause = divison.name;
+                            divisonNcData.cause = "DI-" + divison.name;
                             ncData.push(divisonNcData);
                         }
                     }
@@ -193,6 +193,7 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
 
             Division.prototype.getAllDivisionMembers = function() {
                 let members = [];
+                let self = this;
                 if(this.commanders !== undefined) {
                     members = members.concat(this.commanders);
                 }
@@ -206,6 +207,7 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                         members = members.concat(teamMembers);                        
                     }
                 }
+                members.map((x) => {x.divisionColor = self.color;});
                 return members;
             }
 
@@ -435,6 +437,7 @@ app.factory('Member', [function() {
                 this.roster = memberData.roster;
                 this.team = memberData.team;
                 this.division = memberData.division;
+                this.divisionShort = this.division.replace("DI-", "");
                 this.tsData = {
                     status: memberData.ts_status,
                     lastActive: memberData.ts_lastactive,
@@ -445,7 +448,7 @@ app.factory('Member', [function() {
                 this.memberRank = memberData.member_rank;
                 this.position = memberData.position;
                 this.positionFormatted = this.formattedPositionName();
-                this.honorPoints = memberData.honor_points;
+                this.honorPoints = parseInt(memberData.honor_points);
                 this.recruitmemberData = {
                     recruitedThisMonth: memberData.recruits_this_month,
                     retainedThisMonth: memberData.recruits_retained_this_month,
@@ -462,7 +465,7 @@ app.factory('Member', [function() {
                 if(this.position === 'TL' || this.position === '2IC') {
                     return this.team;
                 }
-                else if(this.position === 'DV' || this.position === 'DC') {
+                else if(this.position === 'DV' || this.position === 'DC' || this.position === 'FC' || this.position === 'HG') {
                     return '';
                 }
                 else {
@@ -495,7 +498,8 @@ app.factory('Member', [function() {
             Member.prototype.roleImageName = function() {
                 const roleMap = {
                     "Leader": 'leader',
-                    "General": 'chancellor',
+                    'HG': 'chancellor',
+                    'FC': 'general',
                     "DC": 'general',
                     "DV": 'commander',
                     "TL": 'commander'
@@ -556,7 +560,9 @@ app.factory('Member', [function() {
                 '2IC': 3,
                 'Team Leader': 4,
                 'Vice': 5,
-                'Commander': 6
+                'Commander': 6,
+                'First Commander': 7,
+                'House General': 8
             };
             return roleValues;
         }
@@ -567,7 +573,7 @@ function getNcDataFromData(data) {
     let ncData = {};
     if(data.NCSince !== undefined) {
         ncData.ncSince = data.NCSince;
-        ncData.ncSinceInDays = getTimeDifferenceInDays(ncData.ncSince);
+        ncData.ncSinceInDays = getTimeDifferenceInDays(ncData.ncSince * 1000);
     }
     if(data.NCReasons !== undefined) {
         ncData.reasons = [];
@@ -585,7 +591,19 @@ function getNcDataFromData(data) {
 }
 
 function getTimeDifferenceInDays(milliseconds) {
-	let date = new Date();
+    let today = new Date();
+    let diffDate = new Date(milliseconds);
+    let oneDay = 1000 * 60 * 60 * 24;
+    let todayMs = today.getTime();
+    let diffDateMs = diffDate.getTime();
+    let diffMs = todayMs - diffDateMs;
+    let diffDays = Math.floor(diffMs/oneDay);
+    if (diffDays < 0) {
+        diffDays = 0;
+    }
+    console.log(milliseconds, today.valueOf(), diffDate.valueOf(), today.toLocaleString(), diffDate.toLocaleString(), diffDays);
+    return diffDays;
+    /*
 	date.setUTCHours(0);
 	date.setUTCMinutes(0);
 	let currentMilliseconds = date.valueOf();
@@ -596,14 +614,15 @@ function getTimeDifferenceInDays(milliseconds) {
     if(parsed <= 0) { // TODO: Fix
         parsed = 1;
     }
-	return parsed;
+    return parsed;
+    */
 }
 
 function getSdDataFromData(data) {
     let sdData = {};
     if(data.SDSince !== undefined) {
         sdData.sdSince = data.SDSince;
-        sdData.sdSinceInDays = getTimeDifferenceInDays(sdData.SDSince);
+        sdData.sdSinceInDays = getTimeDifferenceInDays(sdData.SDSince * 1000);
     }
 	return sdData;
 }

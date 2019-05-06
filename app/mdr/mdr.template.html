@@ -32,13 +32,13 @@
         <tr ng-repeat="division in $ctrl.divisions | orderBy:propertyName:reverse">
                 <td>
                         <div>
-                                <img class="div-icon" ng-src="/images/house-{{division.house.nameShort.toLowerCase()}}.png">&nbsp;</img>
+                                <img class="small-icon" ng-src="/images/house-{{division.house.nameShort.toLowerCase()}}.png">&nbsp;</img>
                                 <a href="#!/house/{{division.house.nameShort.toLowerCase()}}" style="color: {{division.house.color}}">{{division.house.nameShort}}</span>
                         </div>
                 </td>
                 <td>
                         <div style="display: flex; line-height: 3">
-                                <img class="div-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
+                                <img class="small-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
                                         <a style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
                                 </img>
                                 <div ng-if="division.isSeedDivision" style="padding-left: 5px; padding-top: 4px">
@@ -57,7 +57,7 @@
                         </div>
                 </td>
                 <td>
-                        <img style="margin-right: 5px" ng-if="division.getGameImageName() !== undefined" class="div-icon" ng-src="/images/game-{{division.getGameImageName()}}.png">
+                        <img style="margin-right: 5px" ng-if="division.getGameImageName() !== undefined" class="small-icon" ng-src="/images/game-{{division.getGameImageName()}}.png">
                         <span>{{division.game}}</span>
 
                 </td>
