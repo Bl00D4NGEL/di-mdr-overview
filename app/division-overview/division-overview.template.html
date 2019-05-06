@@ -54,8 +54,8 @@
                                                 <span title="Is causing non-compliance" class="error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
                                                 <span style="padding-left: 10px; margin-top: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
                                         </div>
-                                        <div ng-if="!reason.isCausingUnit" style="border: 1px solid orange; display: flex; width: 100%">
-                                                <span class="warning-box vertical-center">!</span>
+                                        <div ng-if="!reason.isCausingUnit" style="display: flex; width: 100%">
+                                                <span class="warning-box vertical-center" style="margin-left: 3px">!</span>
                                                 <span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
                                         </div>
                                 </div>
@@ -113,7 +113,7 @@
         </tr>
         <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
                 <td style="display: flex">
-                        <div style="padding-left: 10px; margin-right: 10px" class="role-icon">
+                        <div style="padding-left: 10px; margin-right: 10px; width: 25px" class="role-icon">
                                 <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
                                 <span ng-style="{{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined">
                                         {{member.roleCharacter()}}
