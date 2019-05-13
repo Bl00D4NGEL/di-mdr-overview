@@ -8,6 +8,9 @@ angular.
 				when('/mdr', {
 					template: '<mdr></mdr>',
 				}).
+				when('/total', {
+					template: '<total-overview></total-overview>',
+				}).
 				when('/division/:divisionId', {
 					template: '<division-overview></division-overview>',
 				}).
@@ -18,4 +21,12 @@ angular.
 					redirectTo: '/mdr',
 				});
 		},
+	]);
+	
+angular.
+	module('diMdrOverview').
+	config(['$compileProvider',
+		function ($compileProvider) {
+			$compileProvider.debugInfoEnabled(false);
+		}
 	]);

@@ -19,6 +19,9 @@ app.factory('House', ['Member', 'Division', function(Member, Division) {
                 this.memberData = Member.getMemberDataFromData(houseData);
                 this.posts = houseData.posts;
                 this.isCompliant = houseData.Compliant;
+                if(this.isCompliant === false) {
+                    this.ncData = getNcDataFromData(houseData);
+                }
                 if(houseData.Divisions !== undefined) {
                     this.divisions = [];
                     for (let divisionName in houseData.Divisions) {
@@ -129,7 +132,7 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                 if(divisionData.Game !== undefined) {
                     this.game = divisionData.Game.name;
                 }
-                this.isSuperDivision = divisionData.super;
+                this.isSuperDivision = divisionData.Super;
                 if(this.isSuperDivision) {
                     this.sdData = getSdDataFromData(divisionData);
                 }
@@ -414,14 +417,20 @@ app.factory('Member', [function() {
                 }
                 this.id = memberData.member_id;
                 this.name = memberData.member_name;
+                this.maxTsInactivity = 7;
+                this.maxForumInactivity = 5;
                 this.postData = {
-                    current: memberData.member_posts,
+                    current: parseInt(memberData.member_posts),
                     thisMonth: parseInt(memberData.posts.acc_this_month),
                     lastMonth: parseInt(memberData.posts.acc_last_month)
                 };
                 this.group = memberData.member_group_id;
                 this.joinedOn = memberData.member_joined_on;
-                this.lastActivity = memberData.last_activity;
+                this.lastActivity = parseInt(memberData.last_activity);
+                if (parseInt(this.lastActivity) > 0) {
+                    this.lastActivityDate = new Date(this.lastActivity * 1000);
+                    this.lastActivityInDays = getTimeDifferenceInDays(this.lastActivity * 1000);
+                }
                 this.isAway = (memberData.away === 1 ? true : false);
                 this.eventData = {
                     attendedThisMonth: memberData.events_this_month,
@@ -430,7 +439,7 @@ app.factory('Member', [function() {
                     hostedLastMonth: memberData.events_hosted_last_month,
                 };
                 this.repData = {
-                    current: memberData.member_rep,
+                    current: parseInt(memberData.member_rep),
                     thisMonth: parseInt(memberData.rep.acc_this_month),
                     lastMonth: parseInt(memberData.rep.acc_last_month),
                 };
@@ -440,11 +449,15 @@ app.factory('Member', [function() {
                 this.divisionShort = this.division.replace("DI-", "");
                 this.tsData = {
                     status: memberData.ts_status,
-                    lastActive: memberData.ts_lastactive,
+                    lastActive: parseInt(memberData.ts_lastactive),
                     isOnline: (memberData.ts_online === 1 ? true : false),
                     lastUpdated: memberData.ts_updated,
                     isTsLinked: (memberData.ts_linked === 1 ? true : false)
                 };
+                if (this.tsData.lastActive > 0) {
+                    this.tsData.lastActiveDate = new Date(this.tsData.lastActive * 1000);
+                    this.tsData.lastActiveInDays = getTimeDifferenceInDays(this.tsData.lastActive * 1000);
+                }
                 this.memberRank = memberData.member_rank;
                 this.position = memberData.position;
                 this.positionFormatted = this.formattedPositionName();
@@ -530,6 +543,22 @@ app.factory('Member', [function() {
                 };
                 return {color: roleMap[this.memberRank]};
             }
+
+            Member.prototype.getRepDecay = function(days) {
+                days = parseInt(days);
+                if (days < 8) {
+                    return 5;
+                }
+                else if (days < 15) {
+                    return 15;
+                }
+                else if (days < 31) {
+                    return 25;
+                }
+                else {
+                    return 50;
+                }
+            }
             return new Member(data);
         },
         createBatch: function(batchData) {
@@ -573,7 +602,7 @@ function getNcDataFromData(data) {
     let ncData = {};
     if(data.NCSince !== undefined) {
         ncData.ncSince = data.NCSince;
-        ncData.ncSinceInDays = getTimeDifferenceInDays(ncData.ncSince * 1000);
+        ncData.ncSinceInDays = getTimeDifferenceInDays(parseInt(ncData.ncSince) * 1000);
     }
     if(data.NCReasons !== undefined) {
         ncData.reasons = [];
@@ -601,28 +630,14 @@ function getTimeDifferenceInDays(milliseconds) {
     if (diffDays < 0) {
         diffDays = 0;
     }
-    console.log(milliseconds, today.valueOf(), diffDate.valueOf(), today.toLocaleString(), diffDate.toLocaleString(), diffDays);
     return diffDays;
-    /*
-	date.setUTCHours(0);
-	date.setUTCMinutes(0);
-	let currentMilliseconds = date.valueOf();
-	currentMilliseconds /= 1000;
-	let secondsInDay = 60 * 60 * 24;
-    let days = (currentMilliseconds - milliseconds) / secondsInDay;
-    let parsed = parseInt(Math.round(days));
-    if(parsed <= 0) { // TODO: Fix
-        parsed = 1;
-    }
-    return parsed;
-    */
 }
 
 function getSdDataFromData(data) {
     let sdData = {};
     if(data.SDSince !== undefined) {
         sdData.sdSince = data.SDSince;
-        sdData.sdSinceInDays = getTimeDifferenceInDays(sdData.SDSince * 1000);
+        sdData.sdSinceInDays = getTimeDifferenceInDays(parseInt(sdData.sdSince) * 1000);
     }
 	return sdData;
 }

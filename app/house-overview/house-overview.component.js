@@ -7,7 +7,7 @@ angular.module('houseOverview').component('houseOverview', {
 			const self = this;
 			const roleValues = Member.getRoleValues();
 			$http.get('http://mdr.d-peters.com:2048/house/' + $routeParams.houseId).then(function(response) {
-				const data = response.data;
+				let data = response.data;
 				let houseObject = House.create(data);
 				self.house = houseObject;
 				self.members = self.house.getAllHouseMembers();

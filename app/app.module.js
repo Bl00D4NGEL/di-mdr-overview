@@ -4,5 +4,6 @@ angular.module('diMdrOverview', [
 	'ngRoute',
 	'mdr',
 	'divisionOverview',
-	'houseOverview'
+	'houseOverview',
+	'totalOverview'
 ]);

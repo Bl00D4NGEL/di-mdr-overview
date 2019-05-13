@@ -1,10 +1,6 @@
 
-<div style="display: flex; justify-content: space-between; height: 280px; margin-top: 100px; margin-bottom: 75px; color: #ddd;">
+<div style="display: flex; justify-content: space-between; height: 240px; margin-top: 100px; margin-bottom: 75px; color: #ddd;">
         <div>
-                <div style="display: flex; margin-bottom: 35px; margin-left: 32px;">
-                        <img src="/images/house-{{$ctrl.house.name.toLowerCase()}}.png" style="height: 55px; margin-top: 8px;">
-                        <h1 style="font-weight: bold; margin-left: 10px;" class="vertical-center">House {{$ctrl.house.name}} ({{$ctrl.members.length}})</h1>
-                </div>
                 <div style="margin-bottom: 25px; margin-left: 45px;">
                         <label>
                                 <span style="float: left; margin-top: 13px; font-size: 18px; font-weight: bolder">Search for member</span>
@@ -20,32 +16,18 @@
                         </div>
                 </div>
         </div>
-        
-        <div style="margin-top: 105px">
-                <div ng-if="!$ctrl.house.isCompliant" style="margin-bottom: 30px">
-                        <div>
-                                <h1 style="margin-top: 5px;font-weight: bold">House not compliant since {{$ctrl.house.ncData.ncSinceInDays}} days</h1>
-                                <div ng-repeat="reason in $ctrl.house.ncData.reasons" style="display: lex; margin-bottom: 5px">
-                                        <div ng-if="reason.isCausingUnit" style="display: flex; width: 100%">
-                                                <span title="Is causing non-compliance" class="error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
-                                                <span style="padding-left: 10px; margin-top: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
-                                        </div>
-                                        <div ng-if="!reason.isCausingUnit" style="display: flex; width: 100%">
-                                                <span class="warning-box vertical-center" style="margin-left: 3px">!</span>
-                                                <span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-        </div>
 </div>
 <table style="margin-left: 45px;">
         <tr>
-                <th style="padding-left: 5px" ng-click="sortBy('division')">
+                <th style="padding-left: 5px" ng-click="sortBy('house')">
+                        House
+                        <span class="sortorder" ng-show="propertyName === 'house'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th ng-click="sortBy('division')">
                         Division
                         <span class="sortorder" ng-show="propertyName === 'division'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('positionFormatted')">
+                <th style="padding-left: 5px" ng-click="sortBy('positionFormatted')">
                         Role
                         <span class="sortorder" ng-show="propertyName === 'positionFormatted'" ng-class="{reverse: reverse}"></span>
                 </th>
@@ -76,6 +58,12 @@
         </tr>
         <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
                 <td>
+                        <div>
+                                <img class="tiny-icon" ng-src="/images/house-{{member.house.toLowerCase()}}.png">&nbsp;</img>
+                                <a href="#!/house/{{member.house.toLowerCase()}}" style="color: {{member.houseColor}}">{{member.house}}</span>
+                        </div>
+                </td>
+                <td>
                         <div style="display: flex" ng-if="member.division !== undefined">
                                 <a style="color: {{member.divisionColor}}" href="#!/division/{{member.divisionShort}}">
                                         <img class="tiny-icon" ng-src="/images/div-{{member.divisionShort.toLowerCase()}}.svg">
@@ -84,7 +72,7 @@
                         </div>
                 </td>
                 <td style="display: flex">
-                        <div style="width: 25px">
+                        <div style="padding-left: 10px; width: 25px">
                                 <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
                                 <span ng-style="{{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined && member.roleImageName() === undefined">
                                         {{member.roleCharacter()}}
@@ -144,5 +132,6 @@
                                 <span style="margin-left: 10px;">{{member.lastActivityDate.toLocaleDateString()}} {{member.lastActivityDate.toLocaleTimeString()}}</span>
                         </div>
                 </td>
+        </div>
         </tr>
 </table>

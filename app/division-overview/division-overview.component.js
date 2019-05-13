@@ -8,7 +8,7 @@ angular.module('divisionOverview').component('divisionOverview', {
 			const self = this;
 			const roleValues = Member.getRoleValues();
 			$http.get('http://mdr.d-peters.com:2048/division/' + $routeParams.divisionId).then(function(response) {
-				const data = response.data;
+				let data = response.data;
 				let divisionObject = Division.create(data);
 				divisionObject.house = data.House;
 				self.division = divisionObject;
