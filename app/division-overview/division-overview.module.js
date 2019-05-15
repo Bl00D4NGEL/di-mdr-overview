@@ -2,4 +2,5 @@
 
 angular.module('divisionOverview', [
 	'ngRoute',
+	'seedDivision'
 ]);

@@ -40,4 +40,7 @@ angular.module('divisionOverview').component('divisionOverview', {
 			};
 		},
 	],
+	bindings: {
+		"search.name": '&',
+	}
 });

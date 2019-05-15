@@ -1,151 +1,148 @@
 
-<div style="display: flex; justify-content: space-between; height: 280px; margin-top: 100px; margin-bottom: 75px; color: #ddd;">
-        <div>
-                <div style="display: flex; margin-bottom: 35px; margin-left: 32px;">
-                        <img src="/images/div-{{$ctrl.division.nameShort.toLowerCase()}}.svg" style="height: 55px; margin-top: 8px;">
-                        <h1 style="font-weight: bold; margin-left: 10px;" class="vertical-center">Division {{$ctrl.division.nameShort.toUpperCase()}} ({{$ctrl.members.length}})</h1>
-                        <div style="padding-left: 15px"></div>
-                        <div ng-if="$ctrl.division.isSeedDivision" style="padding-left: 5px;">
-                                        <h1 title="Seed division">
-                                                <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 25px; margin-bottom: 1px; margin-left: 2px">
-                                                        <path fill="green" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"></path>
-                                                </svg>
-                                        </h1>
-                        </div>
-                        <div ng-if="$ctrl.division.isSuperDivision" style="padding-left: 5px;">
-                                <h1 style="font-size: 30px; margin-top: 20px; padding-top: 2px" class="super-division" title="Super division since {{$ctrl.division.sdData.sdSinceInDays}} days"></span>
-                        </div>
-                </div>
-                <div style="margin-bottom: 25px; margin-left: 45px;">
-                        <label>
-                                <span style="float: left; margin-top: 13px; font-size: 18px; font-weight: bolder">Search for member</span>
-                                <input style="color: black; float: left; width: 45%; margin-left: 25px; margin-top: 11px" ng-model="search.name">
-                        </label>
-                </div>
-                <div style="display: flex; margin-left: 45px;">
-                        <div>
-                                <span style="margin-bottom: 15px; font-weight: bold; width: 100%;; float: left">Rep / Post display</span><br style="padding: 5px">
-                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">Total</label><br>
-                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">Current month</label><br>
-                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">Last month</label><br>
-                        </div>
-                </div>
-        </div>
-        <div style="margin-top: 105px">
-                <div ng-if="!$ctrl.division.isCompliant" style="margin-bottom: 30px">
-                        <div>
-                                <h1 style="margin-top: 5px;font-weight: bold">Division not compliant since {{$ctrl.division.ncData.ncSinceInDays}} days</h1>
-                                <div ng-repeat="reason in $ctrl.division.ncData.reasons" style="display: lex; margin-bottom: 5px">
-                                        <div ng-if="reason.isCausingUnit" style="display: flex; width: 100%">
-                                                <span title="Is causing non-compliance" class="error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
-                                                <span style="padding-left: 10px; margin-top: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
-                                        </div>
-                                        <div ng-if="!reason.isCausingUnit" style="display: flex; width: 100%">
-                                                <span class="warning-box vertical-center" style="margin-left: 3px">!</span>
-                                                <span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-        </div>
+<div style="justify-content: space-between; margin-bottom: 75px; color: #ddd">
+	<div class="name-div">
+		<img src="/images/div-{{$ctrl.division.nameShort.toLowerCase()}}.svg" style="height: 55px; margin-top: 8px;">
+		<h1 style="font-weight: bold; margin-left: 10px;" class="vertical-center">Division {{$ctrl.division.nameShort.toUpperCase()}} ({{$ctrl.members.length}})</h1>
+		<div ng-if="$ctrl.division.isSeedDivision" style="padding-left: 5px;">
+			<seed-division></seed-division>
+		</div>
+		<div ng-if="$ctrl.division.isSuperDivision" style="padding-left: 5px;">
+			<h1 style="font-size: 30px; margin-top: 20px; padding-top: 2px" class="super-division" title="Super division since {{$ctrl.division.sdData.sdSinceInDays}} days"></span>
+		</div>
+	</div>
+	<div>
+		<div style="display: flex; justify-content: space-between">
+			<div style="max-width: 45%; margin-right: 2%">
+				<div style="margin-bottom: 25px; margin-left: 13px;">
+					<label>
+						<span style="float: left; margin-top: 13px; font-size: 18px; font-weight: bolder">Search for member</span>
+						<input style="color: black; float: left; margin-left: 25px; margin-top: 11px" ng-model="search.name">
+					</label>
+				</div>
+				<div style="display: flex; margin-left: 13px;">
+					<div>
+						<span style="margin-bottom: 15px; font-weight: bold; width: 100%;; float: left">Rep / Post display</span><br style="padding: 5px">
+						<label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">Total</label><br>
+						<label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">Current month</label><br>
+						<label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">Last month</label><br>
+					</div>
+				</div>
+			</div>
+			<div ng-if="!$ctrl.division.isCompliant" style="max-width: 45%; margin-bottom: 30px">
+				<div>
+					<h1 style="margin-top: 5px;font-weight: bold">Division not compliant since {{$ctrl.division.ncData.ncSinceInDays}} days</h1>
+					<div ng-repeat="reason in $ctrl.division.ncData.reasons" style="display: lex; margin-bottom: 5px">
+						<div ng-if="reason.isCausingUnit" style="display: flex; width: 100%">
+							<span title="Is causing non-compliance" class="error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
+							<span style="padding-left: 10px; margin-top: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+						</div>
+						<div ng-if="!reason.isCausingUnit" style="display: flex; width: 100%">
+							<span class="warning-box vertical-center" style="margin-left: 3px">!</span>
+							<span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<table style="margin-left: 45px;">
-        <tr>
-                <th style="padding-left: 5px" ng-click="sortBy('positionFormatted')">
-                        Role
-                        <span class="sortorder" ng-show="propertyName === 'positionFormatted'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('name')">
-                        Name
-                        <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('rep')">
-                        Reputation
-                        <span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('post')">
-                        Posts
-                        <span class="sortorder" ng-show="propertyName === 'post'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy(formattedRosterName())">
-                        Roster
-                        <span class="sortorder" ng-show="propertyName === formattedRosterName()" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('tsData.isTsLinked')">
-                        Ts Linked
-                        <span class="sortorder" ng-show="propertyName === 'tsData.isTsLinked'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('tsData.lastActive')">
-                        Ts Last Active
-                        <span class="sortorder" ng-show="propertyName === 'tsData.lastActive'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('lastActivity')">
-                        Forum Last Active
-                        <span class="sortorder" ng-show="propertyName === 'lastActivity'" ng-class="{reverse: reverse}"></span>
-                </th>
-        </tr>
-        <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
-                <td style="display: flex">
-                        <div style="padding-left: 10px; width: 25px">
-                                <img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
-                                <span ng-style="{{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined && member.roleImageName() === undefined">
-                                        {{member.roleCharacter()}}
-                                </span>
-                        </div>
-                        <div style="margin-top: 1.5px;">
-                                <span style="padding-left: 10px;">{{member.positionFormatted}}</span>
-                        </div>
-                </td>
-                <td>[{{member.country}}] {{member.name}}</td>
-                <td>
-                        <span ng-if="sort_orderBy === 'current'">{{member.repData.current}}</span>
-                        <span ng-if="sort_orderBy === 'thisMonth'">{{member.repData.thisMonth}}</span>
-                        <span ng-if="sort_orderBy === 'lastMonth'">{{member.repData.lastMonth}}</span>
-                </td>
-                <td>
-                        <span ng-if="sort_orderBy === 'current'">{{member.postData.current}}</span>
-                        <span ng-if="sort_orderBy === 'thisMonth'">{{member.postData.thisMonth}}</span>
-                        <span ng-if="sort_orderBy === 'lastMonth'">{{member.postData.lastMonth}}</span>
-                </td>
-                <td>{{member.formattedRosterName()}}</td>
-                <td>
-                        <span ng-if="member.tsData.isTsLinked" class="checked"></span>
-                        <span ng-if="!member.tsData.isTsLinked" class="not-checked"></span>
-                </td>
-                <td>
-                        <div style="display: flex">
-                                <div ng-if="member.tsData.lastActiveInDays > member.maxTsInactivity">
-                                        <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-error-box vertical-center">!</span>
-                                </div>
-                                <div ng-if="member.tsData.lastActiveInDays === member.maxTsInactivity">
-                                        <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-warning-box vertical-center">!</span>
-                                </div>
-                                <div ng-if="member.tsData.lastActiveInDays < member.maxTsInactivity">
-                                        <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-ok-box vertical-center">&#x2713;</span>
-                                </div>
-                                <div ng-if="member.tsData.isTsLinked && member.tsData.lastActive > 0" style="margin-left: 10px">
-                                        <span ng-if="member.tsData.isOnline">Now</span>
-                                        <span ng-if="!member.tsData.isOnline">{{member.tsData.lastActiveDate.toLocaleDateString()}} {{member.tsData.lastActiveDate.toLocaleTimeString()}}</span>
-                                </div>
-                                <div ng-if="!member.tsData.isTsLinked || member.tsData.lastActive === 0" style="display: flex">
-                                        <span class="small-error-box vertical-center">!</span>
-                                        <span style="margin-left: 10px">Never</span>
-                                </div>
-                        </div>
-                </td>
-                <td>
-                        <div style="display: flex">
-                                <div ng-if="member.lastActivityInDays > member.maxForumInactivity">
-                                        <span title="Inactive for {{member.lastActivityInDays}} days" class="small-error-box vertical-center">!</span>
-                                </div>
-                                <div ng-if="member.lastActivityInDays === member.maxForumInactivity">
-                                        <span title="Inactive for {{member.lastActivityInDays}} days" class="small-warning-box vertical-center">!</span>
-                                </div>
-                                <div ng-if="member.lastActivityInDays < member.maxForumInactivity">
-                                        <span title="Inactive for {{member.lastActivityInDays}} days" class="small-ok-box vertical-center">&#x2713;</span>
-                                </div>
-                                <span style="margin-left: 10px;">{{member.lastActivityDate.toLocaleDateString()}} {{member.lastActivityDate.toLocaleTimeString()}}</span>
-                        </div>
-                </td>
-        </tr>
+<table>
+	<tr>
+		<th style="padding-left: 5px" ng-click="sortBy('positionFormatted')">
+			Role
+			<span class="sortorder" ng-show="propertyName === 'positionFormatted'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('name')">
+			Name
+			<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('rep')">
+			Reputation
+			<span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('post')">
+			Posts
+			<span class="sortorder" ng-show="propertyName === 'post'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy(formattedRosterName())">
+			Roster
+			<span class="sortorder" ng-show="propertyName === formattedRosterName()" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('tsData.isTsLinked')">
+			Ts Linked
+			<span class="sortorder" ng-show="propertyName === 'tsData.isTsLinked'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('tsData.lastActive')">
+			Ts Last Active
+			<span class="sortorder" ng-show="propertyName === 'tsData.lastActive'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('lastActivity')">
+			Forum Last Active
+			<span class="sortorder" ng-show="propertyName === 'lastActivity'" ng-class="{reverse: reverse}"></span>
+		</th>
+	</tr>
+	<tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
+		<td style="display: flex">
+			<div style="padding-left: 10px; width: 25px">
+				<img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
+				<span ng-style="{{member.roleCharacterColor()}}" ng-if="member.roleCharacter() !== undefined && member.roleImageName() === undefined">
+					{{member.roleCharacter()}}
+				</span>
+			</div>
+			<div style="margin-top: 1.5px;">
+				<span style="padding-left: 10px;">{{member.positionFormatted}}</span>
+			</div>
+		</td>
+		<td>[{{member.country}}] {{member.name}}</td>
+		<td>
+			<span ng-if="sort_orderBy === 'current'">{{member.repData.current}}</span>
+			<span ng-if="sort_orderBy === 'thisMonth'">{{member.repData.thisMonth}}</span>
+			<span ng-if="sort_orderBy === 'lastMonth'">{{member.repData.lastMonth}}</span>
+		</td>
+		<td>
+			<span ng-if="sort_orderBy === 'current'">{{member.postData.current}}</span>
+			<span ng-if="sort_orderBy === 'thisMonth'">{{member.postData.thisMonth}}</span>
+			<span ng-if="sort_orderBy === 'lastMonth'">{{member.postData.lastMonth}}</span>
+		</td>
+		<td>{{member.formattedRosterName()}}</td>
+		<td>
+			<span ng-if="member.tsData.isTsLinked" class="checked"></span>
+			<span ng-if="!member.tsData.isTsLinked" class="not-checked"></span>
+		</td>
+		<td>
+			<div style="display: flex">
+				<div ng-if="member.tsData.lastActiveInDays > member.maxTsInactivity">
+					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-error-box vertical-center">!</span>
+				</div>
+				<div ng-if="member.tsData.lastActiveInDays === member.maxTsInactivity">
+					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-warning-box vertical-center">!</span>
+				</div>
+				<div ng-if="member.tsData.lastActiveInDays < member.maxTsInactivity">
+					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-ok-box vertical-center">&#x2713;</span>
+				</div>
+				<div ng-if="member.tsData.isTsLinked && member.tsData.lastActive > 0" style="margin-left: 10px">
+					<span ng-if="member.tsData.isOnline">Now</span>
+					<span ng-if="!member.tsData.isOnline">{{member.tsData.lastActiveDate.toLocaleDateString()}} {{member.tsData.lastActiveDate.toLocaleTimeString()}}</span>
+				</div>
+				<div ng-if="!member.tsData.isTsLinked || member.tsData.lastActive === 0" style="display: flex">
+					<span class="small-error-box vertical-center">!</span>
+					<span style="margin-left: 10px">Never</span>
+				</div>
+			</div>
+		</td>
+		<td>
+			<div style="display: flex">
+				<div ng-if="member.lastActivityInDays > member.maxForumInactivity">
+					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-error-box vertical-center">!</span>
+				</div>
+				<div ng-if="member.lastActivityInDays === member.maxForumInactivity">
+					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-warning-box vertical-center">!</span>
+				</div>
+				<div ng-if="member.lastActivityInDays < member.maxForumInactivity">
+					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-ok-box vertical-center">&#x2713;</span>
+				</div>
+				<span style="margin-left: 10px;">{{member.lastActivityDate.toLocaleDateString()}} {{member.lastActivityDate.toLocaleTimeString()}}</span>
+			</div>
+		</td>
+	</tr>
 </table>

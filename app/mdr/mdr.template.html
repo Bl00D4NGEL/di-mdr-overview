@@ -1,70 +1,70 @@
 
 <table>
-        <tr>
-                <th style="padding-left: 5px" ng-click="sortBy('house')">
-                        House
-                        <span class="sortorder" ng-show="propertyName === 'house'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('name')">
-                        Division
-                        <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('game')">
-                        Main game
-                        <span class="sortorder" ng-show="propertyName === 'game'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('memberData.total')">
-                        Members
-                        <span class="sortorder" ng-show="propertyName === 'memberData.total'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('rep')">
-                        Reputation
-                        <span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('commander.name')">
-                        Commander
-                        <span class="sortorder" ng-show="propertyName === 'commander.name'" ng-class="{reverse: reverse}"></span>
-                </th>
-                <th ng-click="sortBy('vice.name')">
-                        Vice
-                        <span class="sortorder" ng-show="propertyName === 'vice.name'" ng-class="{reverse: reverse}"></span>
-                </th>
-        </tr>
-        <tr ng-repeat="division in $ctrl.divisions | orderBy:propertyName:reverse">
-                <td>
-                        <div>
-                                <img class="small-icon" ng-src="/images/house-{{division.house.nameShort.toLowerCase()}}.png">&nbsp;</img>
-                                <a href="#!/house/{{division.house.nameShort.toLowerCase()}}" style="color: {{division.house.color}}">{{division.house.nameShort}}</span>
-                        </div>
-                </td>
-                <td>
-                        <div style="display: flex; line-height: 3">
-                                <img class="small-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
-                                        <a style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
-                                </img>
-                                <div ng-if="division.isSeedDivision" style="padding-left: 10px; padding-top: 4px">
-                                        <span title="Seed division">
-                                                <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 20px;">
-                                                        <path fill="green" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"></path>
-                                                </svg>
-                                        </span>
-                                </div>
-                                <div ng-if="division.isSuperDivision" style="padding-left: 10px;">
-                                        <span class="super-division-small" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
-                                </div>
-                                <div ng-if="!division.isCompliant" style="padding-top: 11px; padding-left: 10px">
-                                        <span title="Not compliant since {{division.ncData.ncSinceInDays}} days" class="small-error-box vertical-center">!</span>
-                                </div>
-                        </div>
-                </td>
-                <td>
-                        <img style="margin-right: 5px" ng-if="division.getGameImageName() !== undefined" class="small-icon" ng-src="/images/game-{{division.getGameImageName()}}.png">
-                        <span>{{division.game}}</span>
+	<tr>
+		<th style="padding-left: 5px" ng-click="sortBy('house')">
+			House
+			<span class="sortorder" ng-show="propertyName === 'house'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('name')">
+			Division
+			<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('game')">
+			Main game
+			<span class="sortorder" ng-show="propertyName === 'game'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('memberData.total')">
+			Members
+			<span class="sortorder" ng-show="propertyName === 'memberData.total'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('rep')">
+			Reputation
+			<span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('commander.name')">
+			Commander
+			<span class="sortorder" ng-show="propertyName === 'commander.name'" ng-class="{reverse: reverse}"></span>
+		</th>
+		<th ng-click="sortBy('vice.name')">
+			Vice
+			<span class="sortorder" ng-show="propertyName === 'vice.name'" ng-class="{reverse: reverse}"></span>
+		</th>
+	</tr>
+	<tr ng-repeat="division in $ctrl.divisions | orderBy:propertyName:reverse">
+		<td>
+			<div>
+				<img class="small-icon" ng-src="/images/house-{{division.house.nameShort.toLowerCase()}}.png">&nbsp;</img>
+				<a href="#!/house/{{division.house.nameShort.toLowerCase()}}" style="color: {{division.house.color}}">{{division.house.nameShort}}</span>
+			</div>
+		</td>
+		<td>
+			<div style="display: flex; line-height: 3">
+				<img class="small-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
+					<a style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
+				</img>
+				<div ng-if="division.isSeedDivision" style="padding-left: 10px; padding-top: 4px">
+					<span title="Seed division">
+						<svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 20px;">
+							<path fill="green" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"></path>
+						</svg>
+					</span>
+				</div>
+				<div ng-if="division.isSuperDivision" style="padding-left: 10px;">
+					<span class="super-division-small" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
+				</div>
+				<div ng-if="!division.isCompliant" style="padding-top: 11px; padding-left: 10px">
+					<span title="Not compliant since {{division.ncData.ncSinceInDays}} days" class="small-error-box vertical-center">!</span>
+				</div>
+			</div>
+		</td>
+		<td>
+			<img style="margin-right: 5px" ng-if="division.getGameImageName() !== undefined" class="small-icon" ng-src="/images/game-{{division.getGameImageName()}}.png">
+			<span>{{division.game}}</span>
 
-                </td>
-                <td>{{division.memberData.total}}</td>
-                <td>{{division.rep}}</td>
-                <td>{{division.commanders[0].name}}</td>
-                <td>{{division.vices[0].name}}</td>
-        </tr>
+		</td>
+		<td>{{division.memberData.total}}</td>
+		<td>{{division.rep}}</td>
+		<td>{{division.commanders[0].name}}</td>
+		<td>{{division.vices[0].name}}</td>
+	</tr>
 </table>
