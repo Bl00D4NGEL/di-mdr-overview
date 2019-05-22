@@ -22,11 +22,11 @@ angular.
 				});
 		},
 	]);
-	
+
 angular.
 	module('diMdrOverview').
-	config(['$compileProvider',
-		function ($compileProvider) {
-			$compileProvider.debugInfoEnabled(false);
+	config(['$compileProvider', '__env', 
+		function ($compileProvider, __env) {
+			$compileProvider.debugInfoEnabled(__env.enableDebug);
 		}
 	]);

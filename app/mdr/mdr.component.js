@@ -3,12 +3,12 @@
 // Register `mdr` component, along with its associated controller and template
 angular.module('mdr').component('mdr', {
 	templateUrl: 'mdr/mdr.template.html',
-	controller: ['$http', '$scope', 'House',
-		function MdrController($http, $scope, House) {
+	controller: ['$http', '$scope', 'House', '__env',
+		function MdrController($http, $scope, House, __env) {
 			const self = this;
 			self.divisions = [];
 
-			$http.get('http://mdr.d-peters.com:2048/mdr').then(function(response) {
+			$http.get(__env.apiUrl + '/mdr', {cache: true}).then(function(response) {
 				const mdrData = response.data;
 				for (const houseName in mdrData) {
 					if (houseName === 'Special') {

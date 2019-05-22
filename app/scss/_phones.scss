@@ -1,0 +1,101 @@
+/* Phones */
+$main_width: 80%;
+$main_height: 7vh;
+
+@media screen and (max-width: 576px) {
+    .pw-hide {
+        display: none;
+    }
+
+    h1 {
+        font-size: 7vw;
+    }
+
+    span {
+        font-size: 4vw;
+    }
+
+    td {
+        font-size: 4vw;
+    }
+
+    th {
+        font-size: 4.5vw;
+    }
+
+    label {
+        font-size: 3.5vw;
+    }
+    
+    .name-image {
+        height: 40px;
+    }
+
+    .logo-div {
+        text-align: center;
+        padding-left: 0px !important;
+        padding-bottom: $main_height + 5vh !important;
+    }
+
+    .member-table {
+        margin-left: 13px;
+        width: 92%;
+    }
+    
+    .parent-div {
+        width: $main_width;
+        margin: ((100% - $main_width) / 2);
+    }
+
+    .overview-div {
+        margin-bottom: 0px;
+    }
+
+    .compliance-div {
+        display: none;
+    }
+
+    .name-div > h1 {
+        padding-top: 1vh;
+        margin-left: 5px;
+    }
+
+    .search-div {
+        margin-right: 2%;
+        flex-wrap: wrap;
+        width: 72vw;
+        margin-bottom: $main_height;
+        
+        input {
+            margin-left: 0px;
+            max-width: 200vw;
+            margin-top: 10px;
+            width: 66vw;
+            max-height: 5vh;
+            color: black;
+        }
+        span {
+            font-size: 6vw;
+            font-weight: bolder;
+        }
+    }
+
+    .display-div {
+        margin-right: 2%;
+        flex-wrap: wrap;
+        width: 72vw;
+        margin-bottom: $main_height;
+        
+        span {
+            font-size: 6vw;
+            font-weight: bolder;
+        }
+        
+        label {
+            font-size: 5.5vw;
+            input[type=radio] {
+                margin-right: 7px;
+            }
+        }
+    }
+}

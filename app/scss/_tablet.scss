@@ -1,0 +1,28 @@
+/* Tablet */
+@media screen and (max-width: 992px) {
+    .tw-hide {
+        display: none;
+    }
+    
+    .search-and-compliance {
+        display: block;
+        justify-content: space-between;
+    }
+
+    .search-div {
+        max-width: 100vw
+    }
+    
+    .parent-div {
+        margin-left: 7%;
+        margin-right: 7%;
+    }
+    
+    .search-and-compliance > div {
+        max-width: 100%;
+    }
+    
+    .compliance-div {
+        max-width: 100%;
+    }
+}

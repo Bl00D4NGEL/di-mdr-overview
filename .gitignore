@@ -5,3 +5,4 @@ app/lib/
 .DS_Store
 .idea
 scripts/
+.sass-cache

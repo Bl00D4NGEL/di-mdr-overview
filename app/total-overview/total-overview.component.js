@@ -3,14 +3,14 @@
 // Register `mdr` component, along with its associated controller and template
 angular.module('totalOverview').component('totalOverview', {
 	templateUrl: 'total-overview/total-overview.template.html',
-	controller: ['$http', '$scope', 'House', 'Member',
-		function TotalOverviewController($http, $scope, House, Member) {
+	controller: ['$http', '$scope', 'House', 'Member', '__env',
+		function TotalOverviewController($http, $scope, House, Member, __env) {
 			const self = this;
 			const roleValues = Member.getRoleValues();
 			self.divisions = [];
 			self.members = [];
 
-			$http.get('http://mdr.d-peters.com:2048/mdr').then(function(response) {
+			$http.get(__env.apiUrl + '/mdr', {cache: true}).then(function(response) {
 				let mdrData = response.data;
 				for (let houseName in mdrData) {
 					if (houseName === 'Special') {

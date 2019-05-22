@@ -2,11 +2,11 @@
 
 angular.module('houseOverview').component('houseOverview', {
 	templateUrl: 'house-overview/house-overview.template.html',
-	controller: ['$http', '$routeParams', '$scope', 'House', 'Member',
-		function HouseOverviewController($http, $routeParams, $scope, House, Member) {
+	controller: ['$http', '$routeParams', '$scope', 'House', 'Member', '__env',
+		function HouseOverviewController($http, $routeParams, $scope, House, Member, __env) {
 			const self = this;
 			const roleValues = Member.getRoleValues();
-			$http.get('http://mdr.d-peters.com:2048/house/' + $routeParams.houseId).then(function(response) {
+			$http.get(__env.apiUrl + '/house/' + $routeParams.houseId).then(function(response) {
 				let data = response.data;
 				let houseObject = House.create(data);
 				self.house = houseObject;

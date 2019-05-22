@@ -3,11 +3,11 @@
 // Register `divisionOverview` component, along with its associated controller and template
 angular.module('divisionOverview').component('divisionOverview', {
 	templateUrl: 'division-overview/division-overview.template.html',
-	controller: ['$http', '$routeParams', '$scope', 'Division', 'Member',
-		function DivisionOverviewController($http, $routeParams, $scope, Division, Member) {
+	controller: ['$http', '$routeParams', '$scope', 'Division', 'Member', '__env',
+		function DivisionOverviewController($http, $routeParams, $scope, Division, Member, __env) {
 			const self = this;
 			const roleValues = Member.getRoleValues();
-			$http.get('http://mdr.d-peters.com:2048/division/' + $routeParams.divisionId).then(function(response) {
+			$http.get(__env.apiUrl + '/division/' + $routeParams.divisionId).then(function(response) {
 				let data = response.data;
 				let divisionObject = Division.create(data);
 				divisionObject.house = data.House;
