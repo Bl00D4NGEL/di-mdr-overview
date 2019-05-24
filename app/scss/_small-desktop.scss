@@ -1,0 +1,81 @@
+/* Small Desktops */
+$main_height: 7vh;
+$main_font_size: 2vw;
+
+@media screen and (max-width: 1200px) {
+    .dw-hide {
+        display: none;
+    }
+    
+    h1 {        
+        font-size: $main_font_size + 1.5vw;
+    }
+    
+    span, td {
+        font-size: $main_font_size;
+    }
+
+    th {
+        font-size: $main_font_size;
+    }
+
+    label {
+        font-size: $main_font_size - 0.5vw;
+    }
+
+    .search-div {
+        margin-top: 4%;
+    }
+
+    .search-and-compliance {
+        justify-content: space-between;
+    }
+    
+    .name-div {
+        margin-bottom: 5vh;
+        h1 {
+            line-height: 1.5;
+        }
+    }
+
+    .search-and-compliance > div {
+        max-width: 50%;
+    }
+    
+    .compliance-div h1 {
+        margin-bottom: 1vh;
+    }
+    
+    .box {
+        width: 2vw;
+        font-size: 2vw;
+    }
+    
+    .nc-div {
+        margin-bottom: 0.5vh;
+        span {
+            font-size: $main_font_size - 0.5vw;
+        }
+    }
+    
+    .display-div {
+        margin-right: 2%;
+        flex-wrap: wrap;
+        width: 72vw;
+        margin-bottom: $main_height;
+        
+        span {
+            font-size: $main_font_size - 0.5vw;
+            font-weight: bolder;
+        }
+        
+        label {
+            font-size: $main_font_size - 0.5vw;
+            input[type=radio] {
+                margin-right: 0.5vw;
+                height: 1vh;
+                width: 1vh;
+            }
+        }
+    }
+}

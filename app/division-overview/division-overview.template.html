@@ -2,12 +2,14 @@
 <div class="overview-div">
 	<div class="name-div">
 		<img src="/images/div-{{$ctrl.division.nameShort.toLowerCase()}}.svg" class="name-image">
-		<h1 class="vertical-center">Division {{$ctrl.division.nameShort.toUpperCase()}} ({{$ctrl.members.length}})</h1>
-		<div ng-if="$ctrl.division.isSeedDivision" style="padding-left: 5px;">
-			<seed-division></seed-division>
-		</div>
-		<div ng-if="$ctrl.division.isSuperDivision" style="padding-left: 5px;">
-			<h1 style="font-size: 30px; margin-top: 20px; padding-top: 2px" class="super-division" title="Super division since {{$ctrl.division.sdData.sdSinceInDays}} days"></span>
+		<div class="flex">
+			<h1 class="vertical-center">Division {{$ctrl.division.nameShort.toUpperCase()}} ({{$ctrl.members.length}})</h1>
+			<div class="pw-hide" ng-if="$ctrl.division.isSeedDivision" style="padding-left: 5px;">
+				<seed-division></seed-division>
+			</div>
+			<div class="pw-hide" ng-if="$ctrl.division.isSuperDivision" style="padding-left: 5px;">
+				<h1 class="super-division" title="Super division since {{$ctrl.division.sdData.sdSinceInDays}} days"></span>
+			</div>
 		</div>
 	</div>
 	<div>
@@ -29,14 +31,18 @@
 			<div class="compliance-div" ng-if="!$ctrl.division.isCompliant">
 				<div>
 					<h1 style="margin-top: 5px;font-weight: bold">Division not compliant since {{$ctrl.division.ncData.ncSinceInDays}} days</h1>
-					<div ng-repeat="reason in $ctrl.division.ncData.reasons" style="display: lex; margin-bottom: 5px">
-						<div ng-if="reason.isCausingUnit" style="display: flex; width: 100%">
-							<span title="Is causing non-compliance" class="error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
-							<span style="padding-left: 10px; margin-top: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+					<div ng-repeat="reason in $ctrl.division.ncData.reasons" class="flex nc-div">
+						<div ng-if="reason.isCausingUnit" class="flex full-width">
+							<span title="Is causing non-compliance" class="box error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
+							<span style="padding-left: 10px; margin-top: 10px" class="vertical-center">
+								<span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
+							</span>
 						</div>
-						<div ng-if="!reason.isCausingUnit" style="display: flex; width: 100%">
-							<span class="warning-box" style="margin-left: 3px">!</span>
-							<span style="padding-left: 10px" class="vertical-center">{{reason.reason}} (Drain: {{reason.drainRate}})</span>
+						<div ng-if="!reason.isCausingUnit" class="flex full-width">
+							<span class="box warning-box" style="margin-left: 3px">!</span>
+							<span style="padding-left: 10px" class="vertical-center">
+								<span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -46,7 +52,7 @@
 </div>
 <table class="member-table">
 	<tr>
-		<th class="pw-hide" style="padding-left: 5px" ng-click="sortBy('positionFormatted')">
+		<th class="pw-hide sdw-hide tw-hide" style="padding-left: 5px" ng-click="sortBy('positionFormatted')">
 			Role
 			<span class="sortorder" ng-show="propertyName === 'positionFormatted'" ng-class="{reverse: reverse}"></span>
 		</th>
@@ -55,14 +61,14 @@
 			<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
 		</th>
 		<th ng-click="sortBy('rep')">
-			Rep<span class="pw-hide">utation</span>
+			Rep<span class="pw-hide sdw-hide">utation</span>
 			<span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
 		</th>
 		<th ng-click="sortBy('post')">
 			Posts
 			<span class="sortorder" ng-show="propertyName === 'post'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th class="pw-hide sdw-hide" ng-click="sortBy(formattedRosterName())">
+		<th class="pw-hide" ng-click="sortBy(formattedRosterName())">
 			Roster
 			<span class="sortorder" ng-show="propertyName === formattedRosterName()" ng-class="{reverse: reverse}"></span>
 		</th>
@@ -70,17 +76,17 @@
 			Ts Linked
 			<span class="sortorder" ng-show="propertyName === 'tsData.isTsLinked'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th class="pw-hide tw-hide" ng-click="sortBy('tsData.lastActive')">
+		<th class="pw-hide sdw-hide tw-hide dw-hide" ng-click="sortBy('tsData.lastActive')">
 			Ts Last Active
 			<span class="sortorder" ng-show="propertyName === 'tsData.lastActive'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th class="pw-hide tw-hide" ng-click="sortBy('lastActivity')">
+		<th class="pw-hide sdw-hide tw-hide dw-hide" ng-click="sortBy('lastActivity')">
 			Forum Last Active
 			<span class="sortorder" ng-show="propertyName === 'lastActivity'" ng-class="{reverse: reverse}"></span>
 		</th>
 	</tr>
 	<tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
-		<td class="pw-hide">
+		<td class="pw-hide sdw-hide tw-hide">
 			<div style="display: flex">
 				<div style="padding-left: 10px; width: 25px">
 					<img ng-if="member.roleImageName() !== undefined" ng-src="/images/role-{{member.roleImageName()}}.png">
@@ -104,12 +110,12 @@
 			<span ng-if="sort_orderBy === 'thisMonth'">{{member.postData.thisMonth}}</span>
 			<span ng-if="sort_orderBy === 'lastMonth'">{{member.postData.lastMonth}}</span>
 		</td>
-		<td class="pw-hide sdw-hide">{{member.formattedRosterName()}}</td>
+		<td class="pw-hide">{{member.formattedRosterName()}}</td>
 		<td class="pw-hide sdw-hide">
 			<span ng-if="member.tsData.isTsLinked" class="checked"></span>
 			<span ng-if="!member.tsData.isTsLinked" class="not-checked"></span>
 		</td>
-		<td class="pw-hide tw-hide">
+		<td class="pw-hide sdw-hide tw-hide dw-hide">
 			<div style="display: flex">
 				<div ng-if="member.tsData.lastActiveInDays > member.maxTsInactivity">
 					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-error-box vertical-center">!</span>
@@ -130,7 +136,7 @@
 				</div>
 			</div>
 		</td>
-		<td class="pw-hide tw-hide">
+		<td class="pw-hide sdw-hide tw-hide dw-hide">
 			<div style="display: flex">
 				<div ng-if="member.lastActivityInDays > member.maxForumInactivity">
 					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-error-box vertical-center">!</span>

@@ -1,5 +1,7 @@
 $white: #fff;
 $primary_bg: #131313;
+$secondary_bg: #171717;
+$tertiary_bg: #1b1b1b;
 
 /* Colors */
 /* Divisions*/
@@ -20,6 +22,10 @@ $dmg_inc_white: #ddd;
 $ok_color: #277d27;
 $warning_color: #a06f15;
 
+/* Dimensions */
+$main_height: 7vh;
+$main_font_size: 2vw;
+
 body {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -33,14 +39,14 @@ table {
 
 td {
     padding: 7px 2px;
-    background-color: #171717;
+    background-color: $secondary_bg;
     color: $dmg_inc_white;
-    border: 1px solid #171717;
+    border: 1px solid $secondary_bg;
 }
 
 th {
     font-size: 18px;
-    background-color: #1b1b1b;
+    background-color: $tertiary_bg;
     color: $white;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -56,12 +62,17 @@ label > input[type=radio] {
 span {
     font-size: 14px;
 }
+
 .sortorder:after {
     content: '\25b2';
 }
 
 .sortorder.reverse:after {
     content: '\25bc';
+}
+
+.super-division {
+    padding-top: 1vh;
 }
 
 .super-division:after {
@@ -128,33 +139,34 @@ span {
 
 .vertical-center {
     display: flex;
-    justify-content:center;
-    align-content:center;
-    flex-direction:column;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
-%box {
-    width: 3.5vw;
-    font-size: 5vw;
+.full-width {
+    width: 100%;
+}
+
+.box {
+    width: 2vw;
+    font-size: $main_font_size;
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
 .warning-box {
-    @extend %box;
     background-color: $warning_color;
     color: $white;
 }
 
 .ok-box {
-    @extend %box;
     background-color: $ok_color;
     color: $white;
 }
 
 .error-box {
-    @extend %box;
     background-color: $dmg_inc_red;
     color: $white;
 }
@@ -164,7 +176,7 @@ span {
     height: 20px;
     background-color: $ok_color;
     color: $white;
-    font-size: 18px;
+    font-size: $main_font_size - 0.5vw;
     align-items: center;
 }
 
@@ -173,9 +185,8 @@ span {
     height: 20px;
     background-color: $warning_color;
     color: $white;
-    font-size: 18px;
+    font-size: $main_font_size - 0.5vw;
     align-items: center;
-
 }
 
 .small-error-box {
@@ -183,7 +194,7 @@ span {
     height: 20px;
     background-color: $dmg_inc_red;
     color: $white;
-    font-size: 18px;
+    font-size: $main_font_size - 0.5vw;
     align-items: center;
 }
 
@@ -219,7 +230,7 @@ span {
     h1 {
         font-weight: bold;
         margin-left: 10px;
-        line-height: 1;
+        line-height: 1.5;
     }
 }
 
@@ -232,17 +243,25 @@ span {
     justify-content: space-between;
     margin-left: 13px;
 }
+
 .search-and-compliance > div {
-    max-width: 45%;
+    max-width: 50%;
 }
 
 .compliance-div {
-    max-width: 45%;
+    max-width: 50%;
+}
+
+.nc-div {
+    margin-bottom: 1vh;
+    span {
+        font-size: $main_font_size - 0.5vw;
+    }
 }
 
 .parent-div {
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 8.5%;
+    margin-right: 8.5%;
 }
 
 .logo-div {
@@ -256,18 +275,20 @@ span {
 
 .search-div {
     margin-right: 2%;
+    margin-top: 2.5%;
     flex-wrap: wrap;
     width: 72vw;
     margin-bottom: 25px;
-    
+    line-height: 0.8;
+
     input {
-        margin-left: 25px;
+        margin-left: 1vw;
         max-width: 40vw;
         max-height: 5vh;
         color: black;
     }
     span {
-        font-size: 1.5vw;
+        font-size: $main_font_size - 0.5vw;
         font-weight: bolder;
     }
 }
@@ -278,6 +299,28 @@ span {
     color: #ddd;
 }
 
-//@import "tablet";
-//@import "small-device";
+.display-div {
+    margin-right: 2%;
+    flex-wrap: wrap;
+    width: 72vw;
+    margin-bottom: $main_height;
+    
+    span {
+        font-size: $main_font_size - 1vw;
+        font-weight: bolder;
+    }
+    
+    label {
+        font-size: $main_font_size - 1vw;
+        input[type=radio] {
+            margin-right: 0.5vw;
+            height: 2vh;
+            width: 2vh;
+        }
+    }
+}
+
+@import "small-desktop";
+@import "tablet";
+@import "small-device";
 @import "phones";

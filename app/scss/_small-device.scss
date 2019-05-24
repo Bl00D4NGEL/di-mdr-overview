@@ -1,21 +1,95 @@
 /* Small Device / Landscape Mode */
 $main_width: 80%;
+$main_height: 7vh;
+$main_font_size: 3.5vw;
 
 @media screen and (max-width: 768px) {
     .sdw-hide {
         display: none;
     }
     h1 {        
-        font-size: 6vw;
+        font-size: $main_font_size + 2.5vw;
     }
     
-    .search-div span {
-        font-size: 2.3vw;
-        font-weight: bolder;
+    span, td {
+        font-size: $main_font_size;
+    }
+
+    th {
+        font-size: $main_font_size + 0.5vw;
+    }
+
+    label {
+        font-size: $main_font_size - 0.5vw;
+    }
+    
+    .compliance-div {
+        display: none;
     }
 
     .parent-div {
         margin-left: 12%;
         margin-right: 12%;
+    }
+    
+    .search-and-compliance {
+        display: block;
+    }
+    
+
+    .search-div {
+        margin-right: 2%;
+        flex-wrap: wrap;
+        width: 72vw;
+        margin-bottom: $main_height;
+        
+        input {
+            margin-left: 0px;
+            max-width: 60vw;
+            margin-top: 10px;
+            width: 60vw;
+            height: 6vw;
+            max-height: 5vh;
+            color: black;
+        }
+        span {
+            font-size: $main_font_size + 1.5vw;
+            font-weight: bolder;
+        }
+    }
+
+    .display-div {
+        margin-right: 2%;
+        flex-wrap: wrap;
+        width: 72vw;
+        margin-bottom: $main_height;
+        
+        span {
+            font-size: $main_font_size + 1vw;
+            font-weight: bolder;
+        }
+        
+        label {
+            font-size: $main_font_size + 0.5vw;
+            input[type=radio] {
+                margin-right: 2vw;
+                height: 2vh;
+                width: 2vh;
+            }
+        }
+    }
+    @media screen and (max-height: 450px) {
+        .search-div > input {
+            max-height: 10vh;
+        }
+        
+        .display-div label input[type=radio] {
+            height: 5vh;
+            width: 5vh;
+        }
+
+        .name-div > div > h1 {
+            line-height: 1.3;
+        }
     }
 }
