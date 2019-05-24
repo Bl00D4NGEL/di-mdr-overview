@@ -17,6 +17,9 @@ $main_font_size: 2vw;
 
     th {
         font-size: $main_font_size;
+        span {
+            font-size: $main_font_size;
+        }
     }
 
     label {

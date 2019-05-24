@@ -18,6 +18,9 @@ $main_font_size: 4vw;
 
     th {
         font-size: $main_font_size + 0.5vw;
+        span {
+            font-size: $main_font_size;
+        }
     }
 
     label {
@@ -104,10 +107,6 @@ $main_font_size: 4vw;
         .display-div label input[type=radio] {
             height: 5vh;
             width: 5vh;
-        }
-
-        .name-div > div > h1 {
-            line-height: 1.3;
         }
     }
 }

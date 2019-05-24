@@ -1,0 +1,22 @@
+$tiny: 16px;
+
+.tiny-icon {
+    width: $tiny;
+    height: $tiny;
+}
+
+.small-icon {
+    width: $tiny * 2;
+    height: $tiny * 2;
+    padding: 0;
+}
+
+.medium-icon {
+    height: $tiny * 3;
+    width: $tiny * 3;
+}
+
+.big-icon {
+    height: $tiny * 13;
+    margin: 20px;
+}

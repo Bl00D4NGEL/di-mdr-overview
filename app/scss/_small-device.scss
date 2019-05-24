@@ -17,6 +17,10 @@ $main_font_size: 3.5vw;
 
     th {
         font-size: $main_font_size + 0.5vw;
+        
+        span {
+            font-size: $main_font_size;
+        }
     }
 
     label {
