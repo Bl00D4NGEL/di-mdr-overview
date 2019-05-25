@@ -40,6 +40,7 @@
 		<td>
 			<div style="display: flex;">
 				<span style="margin-right: 10px" ng-if="!division.isCompliant" title="Not compliant since {{division.ncData.ncSinceInDays}} days" class="box error-box vertical-center">!</span>
+				<div ng-if="division.isCompliant" class="box" style="margin-right: 10px"></div>
 				<img class="small-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
 					<a class="vertical-center" style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
 				</img>
