@@ -201,7 +201,7 @@ label {
 .super-division-small:after {
   content: "\2655";
   color: #a79a62;
-  font-size: 25px;
+  font-size: 1.5vw;
   line-height: 1.6; }
 
 .not-compliant:after {
@@ -248,6 +248,9 @@ label {
   body {
     font-size: 2vw; }
 
+  .super-division-small:after {
+    font-size: 2vw; }
+
   h1 {
     font-size: 3vw; }
 
@@ -281,6 +284,9 @@ label {
     display: none; }
 
   body {
+    font-size: 3.5vw; }
+
+  .super-division-small:after {
     font-size: 3.5vw; }
 
   h1 {
@@ -330,6 +336,9 @@ label {
     display: none; }
 
   body {
+    font-size: 4vw; }
+
+  .super-division-small:after {
     font-size: 4vw; }
 
   h1 {

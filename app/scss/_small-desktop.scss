@@ -11,6 +11,10 @@ $main_font_size: 2vw;
         font-size: $main_font_size;
     }
 
+    .super-division-small:after {
+        font-size: $main_font_size;
+    }
+
     h1 {
         font-size: $main_font_size + 1vw;
     }

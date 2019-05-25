@@ -18,7 +18,7 @@ $sd_color: #a79a62;
 .super-division-small:after {
     content: "\2655";
     color: $sd_color;
-    font-size: 25px;
+    font-size: $main_font_size;
     line-height: 1.6;
 }
 
