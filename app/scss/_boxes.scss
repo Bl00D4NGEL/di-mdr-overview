@@ -4,8 +4,7 @@ $warning_color: #a06f15;
 $error_color: #b64240;
 
 .box {
-    width: 2vw;
-    font-size: $main_font_size;
+    width: $main_font_size - 0.5vw;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -31,7 +30,6 @@ $error_color: #b64240;
     height: 20px;
     background-color: $ok_color;
     color: $white;
-    font-size: $main_font_size - 0.5vw;
     align-items: center;
 }
 
@@ -40,7 +38,6 @@ $error_color: #b64240;
     height: 20px;
     background-color: $warning_color;
     color: $white;
-    font-size: $main_font_size;
     align-items: center;
 }
 
@@ -49,6 +46,5 @@ $error_color: #b64240;
     height: 20px;
     background-color: $dmg_inc_red;
     color: $white;
-    font-size: $main_font_size;
     align-items: center;
 }

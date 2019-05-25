@@ -8,6 +8,41 @@ $main_font_size: 4vw;
         display: none;
     }
 
+    body {
+        font-size: $main_font_size;
+    }
+
+    h1 {
+        font-size: $main_font_size + 1vw;
+    }
+
+    label {
+        font-size: $main_font_size - 0.5vw;
+    }
+    
+    td {
+        font-size: $main_font_size - 0.5vw;
+    }
+    
+    .logo-div img {
+        width: 70vw;
+    }
+
+    .name-image {
+        height: 7vh;
+    }
+
+    .parent-div {
+        margin-left: $main_height;
+        margin-right: $main_height;
+    }
+    
+    .search-div input {
+        padding-top: 0;
+        max-width: 60vw;
+    }
+
+    /*
     h1 {
         font-size: $main_font_size + 2vw;
     }
@@ -109,4 +144,5 @@ $main_font_size: 4vw;
             width: 5vh;
         }
     }
+    */
 }

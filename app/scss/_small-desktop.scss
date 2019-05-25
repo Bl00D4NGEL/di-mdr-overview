@@ -6,79 +6,40 @@ $main_font_size: 2vw;
     .dw-hide {
         display: none;
     }
-    
-    h1 {        
-        font-size: $main_font_size + 1.5vw;
-    }
-    
-    span, td {
+
+    body {
         font-size: $main_font_size;
     }
 
-    th {
-        font-size: $main_font_size;
-        span {
-            font-size: $main_font_size;
-        }
+    h1 {
+        font-size: $main_font_size + 1vw;
     }
 
     label {
         font-size: $main_font_size - 0.5vw;
     }
+    
+    td {
+        font-size: $main_font_size - 0.5vw;
+    }
 
     .search-div {
-        margin-top: 4%;
-    }
-
-    .search-and-compliance {
-        justify-content: space-between;
-    }
-    
-    .name-div {
-        margin-bottom: 5vh;
-        h1 {
-            line-height: 1.5;
-        }
-    }
-
-    .search-and-compliance > div {
-        max-width: 50%;
-    }
-    
-    .compliance-div h1 {
-        margin-bottom: 1vh;
-    }
-    
-    .box {
-        width: 2vw;
-        font-size: 2vw;
-    }
-    
-    .nc-div {
-        margin-bottom: 0.5vh;
-        span {
-            font-size: $main_font_size - 0.5vw;
-        }
-    }
-    
-    .display-div {
-        margin-right: 2%;
-        flex-wrap: wrap;
-        width: 72vw;
+        width: 30vw;
         margin-bottom: $main_height;
         
-        span {
-            font-size: $main_font_size - 0.5vw;
-            font-weight: bolder;
+        input {
+            margin-left: 0px;
+            margin-top: 1vh;
+            width: 60vw;
+            color: black;
         }
-        
-        label {
-            font-size: $main_font_size - 0.5vw;
-            input[type=radio] {
-                margin-right: 0.5vw;
-                height: 1vh;
-                width: 1vh;
-            }
-        }
+    }
+
+    .box {
+        width: $main_font_size - 0.5vw;
+    }
+
+    .logo-div img {
+        width: 45vw;
     }
 }

@@ -118,9 +118,9 @@ app.factory('Division', ['Member', 'Team', function(Member, Team) {
                 this.name = divisionData.name;
                 this.nameShort = this.name.replace("DI-", "");
                 this.teams = [];
-                if(data.Teams !== undefined) {
-                    for (let teamName in data.Teams) {
-                        let team = data.Teams[teamName];
+                if(divisionData.Teams !== undefined) {
+                    for (let teamName in divisionData.Teams) {
+                        let team = divisionData.Teams[teamName];
                         team.division = this.name;
                         this.addTeam(team);
                     }

@@ -13,66 +13,49 @@ $main_height: 7vh;
 $main_font_size: 1.5vw;
 
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: $main_height + 3vh;
+    padding-bottom: $main_height + 3vh;
     background-color: $primary_bg;
     font-weight: 600;
+    color: $dmg_inc_white;
+    font-size: $main_font_size;
 }
 
 table {
     width: 100%;
 }
 
+h1 {
+    font-size: $main_font_size + 1vw;
+}
+
 td {
     padding: 7px 2px;
     background-color: $secondary_bg;
-    color: $dmg_inc_white;
     border: 1px solid $secondary_bg;
+    font-size: $main_font_size - 0.5vw;
 }
 
 th {
-    font-size: $main_font_size;
     background-color: $tertiary_bg;
-    color: $white;
     padding-top: 5px;
     padding-bottom: 5px;
     line-height: 1.4;
-    span {
-        font-size: $main_font_size;
+}
+
+label {
+    font-size: $main_font_size - 0.5vw;
+
+    input[type=radio] {
+        vertical-align: middle;
+        margin-right: 0.5vw;
+        height: $main_font_size - 0.7vw;
+        width: $main_font_size - 0.7vw;
     }
 }
 
-span {
-    font-size: $main_font_size;
-}
-
-label > input[type=radio] {
-    vertical-align: middle;
-    margin-top: -2px;
-    margin-right: 3px;
-}
-
 .super-division {
-    padding-top: 1vh;
-}
-
-.dmg-inc-red {
-    color: $dmg_inc_red;
-}
-
-.dmg-inc-white {
-    color: $dmg_inc_white;
-}
-
-.vertical-center {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-}
-
-.full-width {
-    width: 100%;
+    margin-top: 1.5vh;
 }
 
 .vertical-center h1 {
@@ -81,9 +64,10 @@ label > input[type=radio] {
 }
 
 .name-div {
-    display: flex;
-    margin-bottom: 35px;
+    margin-bottom: 10vh;
     width: 100%;
+    height: $main_height;
+
     h1 {
         font-weight: bold;
         margin-left: 10px;
@@ -91,52 +75,50 @@ label > input[type=radio] {
     }
 }
 
-.flex {
-    display: flex;
-}
-
 .search-and-compliance {
-    display: flex;
     justify-content: space-between;
-    margin-left: 13px;
-}
-
-.search-and-compliance > div {
-    max-width: 50%;
+    margin-left: 1vw;
 }
 
 .compliance-div {
     max-width: 50%;
+    
+    h1 {
+        margin-bottom: $main_height / 2;
+    }
 }
 
 .nc-div {
     margin-bottom: 1vh;
-    span {
-        font-size: $main_font_size;
-    }
 }
 
 .parent-div {
-    margin-left: 8.5%;
-    margin-right: 8.5%;
+    margin-left: $main_height * 2;
+    margin-right: $main_height * 2;
 }
 
 .logo-div {
-    padding-left: 5.5%;
-    padding-bottom: 100px;
+    padding-left: $main_height + 1vh;
+    padding-bottom: $main_height * 2;
+
+    img {
+        width: 30vw;
+    }
 }
 
 .name-image {
-    height: 55px;
+    height: $main_height;
+    width: $main_height + 2vh;
+}
+
+.house-image {
+    height: $main_height;
+    width: $main_height;
 }
 
 .search-div {
-    margin-right: 2%;
-    margin-top: 2.5%;
-    flex-wrap: wrap;
-    width: 72vw;
     margin-bottom: 25px;
-    line-height: 0.8;
+    line-height: 1.2;
 
     input {
         margin-left: 1vw;
@@ -144,43 +126,34 @@ label > input[type=radio] {
         max-height: 5vh;
         color: black;
     }
-    span {
-        font-size: $main_font_size;
-        font-weight: bolder;
-    }
 }
 
 .overview-div {
     justify-content: space-between;
     margin-bottom: 75px;
-    color: #ddd;
 }
 
 .display-div {
-    margin-right: 2%;
-    flex-wrap: wrap;
-    width: 72vw;
     margin-bottom: $main_height;
-    
-    span {
-        font-size: $main_font_size;
-        font-weight: bolder;
+}
+
+.seed-division {
+    svg {
+        width: 3vw;
+        margin-top: 1.5vh;
     }
-    
-    label {
-        font-size: $main_font_size - 0.5vw;
-        input[type=radio] {
-            margin-right: 0.5vw;
-            height: 2vh;
-            width: 2vh;
-        }
-    }
+}
+
+.mdr-table-div {
+    margin-left: 7vh;
+    margin-right: 7vh;
 }
 
 @import "icon-sizes";
 @import "houses";
 @import "boxes";
 @import "symbols";
+@import "helper";
 
 @import "small-desktop";
 @import "tablet";

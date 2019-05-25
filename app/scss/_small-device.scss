@@ -1,5 +1,4 @@
 /* Small Device / Landscape Mode */
-$main_width: 80%;
 $main_height: 7vh;
 $main_font_size: 3.5vw;
 
@@ -7,6 +6,67 @@ $main_font_size: 3.5vw;
     .sdw-hide {
         display: none;
     }
+
+    body {
+        font-size: $main_font_size;
+    }
+
+    h1 {
+        font-size: $main_font_size + 1vw;
+    }
+
+    label {
+        font-size: $main_font_size - 0.5vw;
+    }
+    
+    td {
+        font-size: $main_font_size - 0.5vw;
+    }
+
+    .parent-div {
+        margin-left: $main_height * 1.5;
+        margin-right: $main_height * 1.5;
+    }
+
+    .compliance-div {
+        display: none;
+    }
+
+    .search-and-compliance {
+        display: block;
+    }
+
+    .search-div {
+        width: auto;
+
+        span {
+            width: 100%;
+        }
+        input {
+            padding-top: 2vh;
+        }
+    }
+
+    .seed-division svg {
+        width: 5vw;
+        margin-top: 2vh;
+    }
+
+    .logo-div {
+        text-align: center;
+        padding-left: 0;
+
+        img {
+            width: 60vw;
+        }
+    }
+
+    .name-image {
+        width: $main_height;
+    }
+
+    /*
+
     h1 {        
         font-size: $main_font_size + 2.5vw;
     }
@@ -27,18 +87,12 @@ $main_font_size: 3.5vw;
         font-size: $main_font_size - 0.5vw;
     }
     
-    .compliance-div {
-        display: none;
-    }
 
     .parent-div {
         margin-left: 12%;
         margin-right: 12%;
     }
     
-    .search-and-compliance {
-        display: block;
-    }
     
 
     .search-div {
@@ -96,4 +150,5 @@ $main_font_size: 3.5vw;
             line-height: 1.3;
         }
     }
+    */
 }

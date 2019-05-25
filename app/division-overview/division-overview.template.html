@@ -1,51 +1,51 @@
 
 <div class="overview-div">
-	<div class="name-div">
-		<img src="/images/div-{{$ctrl.division.nameShort.toLowerCase()}}.svg" class="name-image">
-		<div class="flex">
-			<h1 class="vertical-center">Division {{$ctrl.division.nameShort.toUpperCase()}} ({{$ctrl.members.length}})</h1>
-			<div class="pw-hide" ng-if="$ctrl.division.isSeedDivision" style="padding-left: 5px;">
-				<seed-division></seed-division>
-			</div>
-			<div class="pw-hide" ng-if="$ctrl.division.isSuperDivision" style="padding-left: 5px;">
-				<h1 class="super-division" title="Super division since {{$ctrl.division.sdData.sdSinceInDays}} days"></span>
-			</div>
-		</div>
+	<div class="name-div flex">
+		<img class="name-image" src="/images/div-{{$ctrl.division.nameShort.toLowerCase()}}.svg">
+                <h1 class="vertical-center">Division {{$ctrl.division.nameShort.toUpperCase()}} ({{$ctrl.members.length}})</h1>
+                <div class="pw-hide" ng-if="$ctrl.division.isSeedDivision" style="padding-left: 5px;">
+                        <seed-division class="seed-division"></seed-division>
+                </div>
+                <div class="pw-hide" ng-if="$ctrl.division.isSuperDivision" style="padding-left: 5px;">
+                        <h1 class="super-division" title="Super division since {{$ctrl.division.sdData.sdSinceInDays}} days"></span>
+                </div>
 	</div>
 	<div>
-		<div class="search-and-compliance">
+		<div class="search-and-compliance flex">
 			<div>
-				<div class="search-div flex">
-					<span>Search for member</span>
+				<div class="search-div flex flex-wrap">
+					<span class="bolder">Search for member</span>
 					<input ng-model="search.name">
 				</div>
-				<div class="display-div flex">
+				<div class="display-div flex flex-wrap">
 					<div>
-						<span style="margin-bottom: 15px; font-weight: bold; width: 100%; float: left">Rep / Post display</span><br style="padding: 5px">
-						<label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">Total</label><br>
-						<label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">Current month</label><br>
-						<label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">Last month</label><br>
+                                                <span style="margin-bottom: 15px; font-weight: bold" class="full-width">Rep / Post display</span>
+                                                <br>
+                                                <input id="orderBy-current" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">
+                                                <label for="orderBy-current">Total</label><br>
+                                                <input id="orderBy-this" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">
+                                                <label for="orderBy-this">Current month</label><br>
+                                                <input id="orderBy-last" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">
+						<label for="orderBy-last">Last month</label><br>
 					</div>
 				</div>
 			</div>
 			<div class="compliance-div" ng-if="!$ctrl.division.isCompliant">
-				<div>
-					<h1 style="margin-top: 5px;font-weight: bold">Division not compliant since {{$ctrl.division.ncData.ncSinceInDays}} days</h1>
-					<div ng-repeat="reason in $ctrl.division.ncData.reasons" class="flex nc-div">
-						<div ng-if="reason.isCausingUnit" class="flex full-width">
-							<span title="Is causing non-compliance" class="box error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
-							<span style="padding-left: 10px; margin-top: 10px" class="vertical-center">
-								<span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
-							</span>
-						</div>
-						<div ng-if="!reason.isCausingUnit" class="flex full-width">
-							<span class="box warning-box" style="margin-left: 3px">!</span>
-							<span style="padding-left: 10px" class="vertical-center">
-								<span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
-							</span>
-						</div>
-					</div>
-				</div>
+                                <h1 style="margin-top: 0; font-weight: bold">Division not compliant since {{$ctrl.division.ncData.ncSinceInDays}} days</h1>
+                                <div ng-repeat="reason in $ctrl.division.ncData.reasons" class="flex nc-div">
+                                        <div ng-if="reason.isCausingUnit" class="flex full-width">
+                                                <span title="Is causing non-compliance" class="box error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
+                                                <span style="padding-left: 10px; margin-top: 10px" class="vertical-center">
+                                                        <span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
+                                                </span>
+                                        </div>
+                                        <div ng-if="!reason.isCausingUnit" class="flex full-width">
+                                                <span class="box warning-box vertical-center" style="margin-left: 3px">!</span>
+                                                <span style="padding-left: 10px" class="vertical-center">
+                                                        <span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
+                                                </span>
+                                        </div>
+                                </div>
 			</div>
 		</div>
 	</div>

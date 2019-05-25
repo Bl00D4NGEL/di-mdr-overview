@@ -9,23 +9,23 @@
 			Division
 			<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th ng-click="sortBy('game')">
+		<th class="pw-hide" ng-click="sortBy('game')">
 			Main game
 			<span class="sortorder" ng-show="propertyName === 'game'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th ng-click="sortBy('memberData.total')">
+		<th class="dw-hide" ng-click="sortBy('memberData.total')">
 			Members
 			<span class="sortorder" ng-show="propertyName === 'memberData.total'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th ng-click="sortBy('rep')">
+		<th class="dw-hide" ng-click="sortBy('rep')">
 			Reputation
 			<span class="sortorder" ng-show="propertyName === 'rep'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th ng-click="sortBy('commander.name')">
+		<th class="dw-hide" ng-click="sortBy('commander.name')">
 			Commander
 			<span class="sortorder" ng-show="propertyName === 'commander.name'" ng-class="{reverse: reverse}"></span>
 		</th>
-		<th ng-click="sortBy('vice.name')">
+		<th class="dw-hide"ng-click="sortBy('vice.name')">
 			Vice
 			<span class="sortorder" ng-show="propertyName === 'vice.name'" ng-class="{reverse: reverse}"></span>
 		</th>
@@ -52,19 +52,19 @@
 				<div ng-if="division.isSuperDivision" style="padding-left: 10px;">
 					<span class="super-division-small" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
 				</div>
-				<div ng-if="!division.isCompliant" style="padding-top: 11px; padding-left: 10px">
+				<div ng-if="!division.isCompliant" style="padding-top: 1.6vh; padding-left: 10px">
 					<span title="Not compliant since {{division.ncData.ncSinceInDays}} days" class="small-error-box vertical-center">!</span>
 				</div>
 			</div>
 		</td>
-		<td>
+		<td class="pw-hide">
 			<img style="margin-right: 5px" ng-if="division.getGameImageName() !== undefined" class="small-icon" ng-src="/images/game-{{division.getGameImageName()}}.png">
 			<span>{{division.game}}</span>
 
 		</td>
-		<td>{{division.memberData.total}}</td>
-		<td>{{division.rep}}</td>
-		<td>{{division.commanders[0].name}}</td>
-		<td>{{division.vices[0].name}}</td>
+		<td class="dw-hide">{{division.memberData.total}}</td>
+		<td class="dw-hide">{{division.rep}}</td>
+		<td class="dw-hide">{{division.commanders[0].name}}</td>
+		<td class="dw-hide">{{division.vices[0].name}}</td>
 	</tr>
 </table>

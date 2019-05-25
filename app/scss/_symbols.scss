@@ -3,12 +3,10 @@ $sd_color: #a79a62;
 
 .sortorder:after {
     content: '\25b2';
-    font-size: $main_font-size - 0.5vw;
 }
 
 .sortorder.reverse:after {
     content: '\25bc';
-    font-size: $main_font-size - 0.5vw;
 }
 
 
