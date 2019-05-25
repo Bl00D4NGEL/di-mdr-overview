@@ -1,29 +1,32 @@
 
-<div style="display: flex; justify-content: space-between; height: 240px; margin-top: 100px; margin-bottom: 75px; color: #ddd;">
+<div>
+<div class="search-and-compliance flex">
         <div>
-                <div style="margin-bottom: 25px; margin-left: 45px;">
-                        <label>
-                                <span style="float: left; margin-top: 13px; font-size: 18px; font-weight: bolder">Search for member</span>
-                                <input style="color: black; float: left; width: 45%; margin-left: 25px; margin-top: 11px" ng-model="search.name">
-                        </label>
+                <div class="search-div flex flex-wrap">
+                        <span class="bolder">Search for member</span>
+                        <input ng-model="search.name">
                 </div>
-                <div style="display: flex; margin-left: 45px;">
+                <div class="display-div flex flex-wrap">
                         <div>
-                                <span style="margin-bottom: 15px; font-weight: bold; width: 100%;; float: left">Rep / Post display</span><br style="padding: 5px">
-                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">Total</label><br>
-                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">Current month</label><br>
-                                <label><input type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">Last month</label><br>
+                                <span style="margin-bottom: 15px; font-weight: bold" class="full-width">Rep / Post display</span>
+                                <br>
+                                <input id="orderBy-current" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">
+                                <label for="orderBy-current">Total</label><br>
+                                <input id="orderBy-this" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">
+                                <label for="orderBy-this">Current month</label><br>
+                                <input id="orderBy-last" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">
+                                <label for="orderBy-last">Last month</label><br>
                         </div>
                 </div>
         </div>
 </div>
-<table style="margin-left: 45px;">
+<table>
         <tr>
-                <th style="padding-left: 5px" ng-click="sortBy('house')">
+                <th class="pw-hide sdw-hide tw-hide" style="padding-left: 5px" ng-click="sortBy('house')">
                         House
                         <span class="sortorder" ng-show="propertyName === 'house'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('division')">
+                <th class="pw-hide sdw-hide tw-hide" ng-click="sortBy('division')">
                         Division
                         <span class="sortorder" ng-show="propertyName === 'division'" ng-class="{reverse: reverse}"></span>
                 </th>
@@ -43,27 +46,27 @@
                         Posts
                         <span class="sortorder" ng-show="propertyName === 'post'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('tsData.isTsLinked')">
+                <th class="pw-hide sdw-hide" ng-click="sortBy('tsData.isTsLinked')">
                         Ts Linked
                         <span class="sortorder" ng-show="propertyName === 'tsData.isTsLinked'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('tsData.lastActive')">
+                <th class="pw-hide sdw-hide tw-hide dw-hide"  ng-click="sortBy('tsData.lastActive')">
                         Ts Last Active
                         <span class="sortorder" ng-show="propertyName === 'tsData.lastActive'" ng-class="{reverse: reverse}"></span>
                 </th>
-                <th ng-click="sortBy('lastActivity')">
+                <th class="pw-hide sdw-hide tw-hide dw-hide"  ng-click="sortBy('lastActivity')">
                         Forum Last Active
                         <span class="sortorder" ng-show="propertyName === 'lastActivity'" ng-class="{reverse: reverse}"></span>
                 </th>
         </tr>
         <tr ng-repeat="member in $ctrl.members | orderBy:propertyName:reverse:rankComparator | filter:search:strict">
-                <td>
+                <td class="pw-hide sdw-hide tw-hide" >
                         <div>
                                 <img class="tiny-icon" ng-src="/images/house-{{member.house.toLowerCase()}}.png">&nbsp;</img>
                                 <a href="#!/house/{{member.house.toLowerCase()}}" style="color: {{member.houseColor}}">{{member.house}}</span>
                         </div>
                 </td>
-                <td>
+                <td class="pw-hide sdw-hide tw-hide" >
                         <div style="display: flex" ng-if="member.division !== undefined">
                                 <a style="color: {{member.divisionColor}}" href="#!/division/{{member.divisionShort}}">
                                         <img class="tiny-icon" ng-src="/images/div-{{member.divisionShort.toLowerCase()}}.svg">
@@ -93,11 +96,11 @@
                         <span ng-if="sort_orderBy === 'thisMonth'">{{member.postData.thisMonth}}</span>
                         <span ng-if="sort_orderBy === 'lastMonth'">{{member.postData.lastMonth}}</span>
                 </td>
-                <td>
+                <td class="pw-hide sdw-hide">
                         <span ng-if="member.tsData.isTsLinked" class="checked"></span>
                         <span ng-if="!member.tsData.isTsLinked" class="not-checked"></span>
                 </td>
-                <td>
+                <td class="pw-hide sdw-hide tw-hide dw-hide">
                         <div style="display: flex">
                                 <div ng-if="member.tsData.lastActiveInDays > member.maxTsInactivity">
                                         <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-error-box vertical-center">!</span>
@@ -118,7 +121,7 @@
                                 </div>
                         </div>
                 </td>
-                <td>
+                <td class="pw-hide sdw-hide tw-hide dw-hide">
                         <div style="display: flex">
                                 <div ng-if="member.lastActivityInDays > member.maxForumInactivity">
                                         <span title="Inactive for {{member.lastActivityInDays}} days" class="small-error-box vertical-center">!</span>
