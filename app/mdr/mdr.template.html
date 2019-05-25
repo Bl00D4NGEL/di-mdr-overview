@@ -38,9 +38,10 @@
 			</div>
 		</td>
 		<td>
-			<div style="display: flex; line-height: 3">
+			<div style="display: flex;">
+				<span style="margin-right: 10px" ng-if="!division.isCompliant" title="Not compliant since {{division.ncData.ncSinceInDays}} days" class="box error-box vertical-center">!</span>
 				<img class="small-icon" style="padding-right: 5px" ng-src="/images/div-{{division.nameShort.toLowerCase()}}.svg">
-					<a style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
+					<a class="vertical-center" style="padding-left: 10px; color: {{division.color}}" href="#!/division/{{division.nameShort.toLowerCase()}}">{{division.name}}</a>
 				</img>
 				<div ng-if="division.isSeedDivision" style="padding-left: 10px; padding-top: 4px">
 					<span title="Seed division">
@@ -51,9 +52,6 @@
 				</div>
 				<div ng-if="division.isSuperDivision" style="padding-left: 10px;">
 					<span class="super-division-small" title="Super division since {{division.sdData.sdSinceInDays}} days"></span>
-				</div>
-				<div ng-if="!division.isCompliant" style="padding-top: 1.6vh; padding-left: 10px">
-					<span title="Not compliant since {{division.ncData.ncSinceInDays}} days" class="small-error-box vertical-center">!</span>
 				</div>
 			</div>
 		</td>
