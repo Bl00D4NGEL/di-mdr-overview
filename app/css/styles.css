@@ -1,6 +1,16 @@
 /* Colors */
 /* Damage Inc */
 /* Dimensions */
+.tiny-icon, .small-icon, .medium-icon, .big-icon, .box {
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */ }
+
 body {
   padding-top: 10vh;
   padding-bottom: 10vh;

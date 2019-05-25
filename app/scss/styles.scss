@@ -12,6 +12,13 @@ $dmg_inc_white: #ddd;
 $main_height: 7vh;
 $main_font_size: 1.5vw;
 
+%no-select {
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none;   /* Firefox all */
+    -ms-user-select: none;  /* IE 10+ */
+    user-select: none;  /* Likely future */ 
+}
+
 body {
     padding-top: $main_height + 3vh;
     padding-bottom: $main_height + 3vh;

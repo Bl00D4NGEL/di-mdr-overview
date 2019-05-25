@@ -3,20 +3,24 @@ $tiny: 16px;
 .tiny-icon {
     width: $tiny;
     height: $tiny;
+    @extend %no-select;
 }
 
 .small-icon {
     width: $tiny * 2;
     height: $tiny * 2;
     padding: 0;
+    @extend %no-select;
 }
 
 .medium-icon {
     height: $tiny * 3;
     width: $tiny * 3;
+    @extend %no-select;
 }
 
 .big-icon {
     height: $tiny * 13;
     margin: 20px;
+    @extend %no-select;
 }

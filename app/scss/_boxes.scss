@@ -8,6 +8,7 @@ $error_color: #b64240;
     align-items: center;
     display: flex;
     flex-direction: column;
+    @extend %no-select;
 }
 
 .warning-box {

@@ -118,13 +118,13 @@
 		<td class="pw-hide sdw-hide tw-hide dw-hide">
 			<div style="display: flex">
 				<div ng-if="member.tsData.lastActiveInDays > member.maxTsInactivity">
-					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-error-box vertical-center">!</span>
+					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="box small-error-box vertical-center">!</span>
 				</div>
 				<div ng-if="member.tsData.lastActiveInDays === member.maxTsInactivity">
-					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-warning-box vertical-center">!</span>
+					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="box small-warning-box vertical-center">!</span>
 				</div>
 				<div ng-if="member.tsData.lastActiveInDays < member.maxTsInactivity">
-					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="small-ok-box vertical-center">&#x2713;</span>
+					<span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="box small-ok-box vertical-center">&#x2713;</span>
 				</div>
 				<div ng-if="member.tsData.isTsLinked && member.tsData.lastActive > 0" style="margin-left: 10px">
 					<span ng-if="member.tsData.isOnline">Now</span>
@@ -139,13 +139,13 @@
 		<td class="pw-hide sdw-hide tw-hide dw-hide">
 			<div style="display: flex">
 				<div ng-if="member.lastActivityInDays > member.maxForumInactivity">
-					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-error-box vertical-center">!</span>
+					<span title="Inactive for {{member.lastActivityInDays}} days" class="box small-error-box vertical-center">!</span>
 				</div>
 				<div ng-if="member.lastActivityInDays === member.maxForumInactivity">
-					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-warning-box vertical-center">!</span>
+					<span title="Inactive for {{member.lastActivityInDays}} days" class="box small-warning-box vertical-center">!</span>
 				</div>
 				<div ng-if="member.lastActivityInDays < member.maxForumInactivity">
-					<span title="Inactive for {{member.lastActivityInDays}} days" class="small-ok-box vertical-center">&#x2713;</span>
+					<span title="Inactive for {{member.lastActivityInDays}} days" class="box small-ok-box vertical-center">&#x2713;</span>
 				</div>
 				<span style="margin-left: 10px;">{{member.lastActivityDate.toLocaleDateString()}} {{member.lastActivityDate.toLocaleTimeString()}}</span>
 			</div>
