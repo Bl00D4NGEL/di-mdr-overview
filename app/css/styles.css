@@ -45,6 +45,9 @@ label {
     height: 0.8vw;
     width: 0.8vw; }
 
+a {
+  color: #ddd !important; }
+
 .super-division {
   margin-top: 1.5vh; }
 
