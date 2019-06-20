@@ -39,7 +39,7 @@ th {
 
 label {
   font-size: 1vw; }
-  label input[type=radio] {
+  label input[type=radio], label input[type=checkbox] {
     vertical-align: middle;
     margin-right: 0.5vw;
     height: 0.8vw;
@@ -47,6 +47,20 @@ label {
 
 a {
   color: #ddd !important; }
+
+button, input[type=submit] {
+  background-color: #b64240;
+  color: #ddd;
+  border: 0;
+  padding: 5px 20px; }
+
+select {
+  height: 28vh;
+  width: 100%;
+  overflow-y: auto; }
+
+.main-font-size {
+  font-size: 1.5vw; }
 
 .super-division {
   margin-top: 1.5vh; }
@@ -243,6 +257,52 @@ a {
 .bolder {
   font-weight: bolder; }
 
+/* The container */
+.div-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .div-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0; }
+  .div-checkbox label {
+    padding-left: 15px; }
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.5vw;
+  width: 1.5vw;
+  background-color: #ddd; }
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 0.5vw;
+  top: 0.3vh;
+  border: solid #b64240;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 0.5vw;
+  height: 1vw; }
+
+.div-checkbox input:checked ~ .checkmark:after {
+  display: block; }
+
 /* Small Desktops */
 @media screen and (max-width: 1200px) {
   .dw-hide {
@@ -262,6 +322,9 @@ a {
 
   td {
     font-size: 1.5vw; }
+
+  .main-font-size {
+    font-size: 2vw; }
 
   .search-div {
     width: 30vw;
@@ -300,6 +363,9 @@ a {
 
   td {
     font-size: 3vw; }
+
+  .main-font-size {
+    font-size: 3.5vw; }
 
   .parent-div {
     margin-left: 10.5vh;
@@ -352,6 +418,9 @@ a {
 
   td {
     font-size: 3.5vw; }
+
+  .main-font-size {
+    font-size: 4vw; }
 
   .logo-div img {
     width: 70vw; }

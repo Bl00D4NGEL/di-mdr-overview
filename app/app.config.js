@@ -17,6 +17,9 @@ angular.
 				when('/house/:houseId', {
 					template: '<house-overview></house-overview>'
 				}).
+				when('/tools', {
+					template: '<officer-tools></officer-tools>'
+				}).
 				otherwise({
 					redirectTo: '/mdr',
 				});

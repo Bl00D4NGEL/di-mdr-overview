@@ -5,5 +5,6 @@ angular.module('diMdrOverview', [
 	'mdr',
 	'divisionOverview',
 	'houseOverview',
-	'totalOverview'
+	'totalOverview',
+	'officerTools'
 ]);

@@ -6,3 +6,4 @@ app/lib/
 .idea
 scripts/
 .sass-cache
+app/env.js

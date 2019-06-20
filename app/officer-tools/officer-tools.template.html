@@ -1,0 +1,53 @@
+<form ng-submit="getTagList()">
+    <div class="flex" style="justify-content: space-between">
+        <div>
+            <div>
+                <div style="margin-bottom: 40px;">
+                    <span>Select one or multiple division(s)</span>
+                </div>
+                <div>
+                    <select style="padding: 5px 10px;" ng-model="selectedDivisions" multiple="multiple">
+                        <option ng-repeat="division in divisions" value="{{division}}">
+                            Division {{division.toUpperCase()}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="margin-bottom: 40px">
+                <span>Select one or multiple role(s)</span>
+            </div>
+            <div class="flex" style="margin-left: 10px" ng-repeat="role in roles">
+                <div class="div-checkbox flex">
+                    <input type="checkbox" ng-model="role.checked" id="role-{{role.name}}">
+                    <span class="checkmark" onclick="this.parentNode.childNodes[1].click()"></span>
+                    <label class="vertical-center" for="role-{{role.name}}">{{role.title}}</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="margin-bottom: 40px">
+                <span>Select tag type</span>
+            </div>
+            <div class="display-div flex" style="flex-direction: column">
+                <div ng-repeat="tagType in tagTypes">
+                    <div>
+                        <input id="tag-type-{{tagType.name}}" ng-value="tagType.name" name="selectedTagType" type="radio" ng-model="$parent.selectedTagType">
+                        <label class="main-font-size" for="tag-type-{{tagType.name}}">{{tagType.title}}</label><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex" style="justify-content: center; margin-top: 50px">
+        <input type="submit" value="Get taglist">
+    </div>
+</form>
+
+<div>
+    Result:
+    <div>{{resultOfQuery}}</div>
+</div>
+
+<div ng-bind-html="rawHtml"> <div></div>

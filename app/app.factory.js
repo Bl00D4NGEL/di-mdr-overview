@@ -488,26 +488,6 @@ app.factory('Member', [function() {
                 }
             }
 
-            Member.prototype.formattedPositionName = function(){  
-                const roleMap = {
-                    'SUB': 'Sub Player',
-                    'TM': 'Member',
-                    'RL': 'Roster Leader',
-                    '2IC': '2IC',
-                    'TL': 'Team Leader',
-                    'DV': 'Vice',
-                    'DC': 'Commander',
-                    'HG': 'House General',
-                    'FC': 'First Commander'
-                };
-                if(roleMap[this.position] !== undefined) {
-                    return roleMap[this.position];
-                }
-                else {
-                    return this.position;
-                }
-            }
-
             Member.prototype.roleImageName = function() {
                 const roleMap = {
                     "Leader": 'leader',
@@ -594,6 +574,31 @@ app.factory('Member', [function() {
                 'House General': 8
             };
             return roleValues;
+        },        
+        formattedPositionName: function(position){  
+            const roleMap = this.getRoleMap();
+            if (position !== undefined) {
+                return roleMap[position];
+            }
+            else if (roleMap[this.position] !== undefined) {
+                return roleMap[this.position];
+            }
+            else {
+                return this.position;
+            }
+        },
+        getRoleMap: function() {
+            return {
+                'SUB': 'Sub Player',
+                'TM': 'Member',
+                'RL': 'Roster Leader',
+                '2IC': '2IC',
+                'TL': 'Team Leader',
+                'DV': 'Vice',
+                'DC': 'Commander',
+                'FC': 'First Commander',
+                'HG': 'House General'
+            };
         }
     }
 }]);
