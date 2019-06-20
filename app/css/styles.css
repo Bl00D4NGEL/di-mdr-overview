@@ -52,7 +52,9 @@ button, input[type=submit] {
   background-color: #b64240;
   color: #ddd;
   border: 0;
-  padding: 5px 20px; }
+  padding: 5px 20px;
+  max-height: 6vh;
+  width: 10vw; }
 
 select {
   height: 28vh;
@@ -131,6 +133,16 @@ select {
 .mdr-table-div {
   margin-left: 7vh;
   margin-right: 7vh; }
+
+.result-div h1, .result-div h2, .result-div h3 {
+  color: #b64240;
+  font-weight: bolder; }
+.result-div h1 {
+  padding: 3vh 0; }
+.result-div h2, .result-div h3 {
+  padding: 2vh 0; }
+.result-div .role {
+  font-weight: bolder; }
 
 .tiny-icon {
   width: 16px;
