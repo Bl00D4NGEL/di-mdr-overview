@@ -473,6 +473,19 @@ app.factory('Member', [function() {
                 this.country = memberData.country;
                 this.house = memberData.house;
             }
+            
+            Member.prototype.formattedPositionName = function(position){  
+                const roleMap = this.getRoleMap();
+                if (position !== undefined) {
+                    return roleMap[position];
+                }
+                else if (roleMap[this.position] !== undefined) {
+                    return roleMap[this.position];
+                }
+                else {
+                    return this.position;
+                }
+            }
 
             Member.prototype.formattedRosterName = function(){
                 if(this.position === 'TL' || this.position === '2IC') {
@@ -539,6 +552,19 @@ app.factory('Member', [function() {
                     return 50;
                 }
             }
+            Member.prototype.getRoleMap = function() {
+                return {
+                    'SUB': 'Sub Player',
+                    'TM': 'Member',
+                    'RL': 'Roster Leader',
+                    '2IC': '2IC',
+                    'TL': 'Team Leader',
+                    'DV': 'Vice',
+                    'DC': 'Commander',
+                    'FC': 'First Commander',
+                    'HG': 'House General'
+                };
+            }
             return new Member(data);
         },
         createBatch: function(batchData) {
@@ -574,7 +600,7 @@ app.factory('Member', [function() {
                 'House General': 8
             };
             return roleValues;
-        },        
+        },
         formattedPositionName: function(position){  
             const roleMap = this.getRoleMap();
             if (position !== undefined) {
