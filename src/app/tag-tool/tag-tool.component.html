@@ -1,0 +1,38 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="flex" style="justify-content: space-between">
+        <div>
+            <div>
+                <div style="margin-bottom: 40px;">
+                    <span>Select one or multiple division(s)</span>
+                </div>
+                <div>
+                    <select style="padding: 5px 10px;" formControlName="divisions" multiple="multiple">
+                        <option *ngFor="let division of divisions" [value]="division.toLowerCase()">
+                            Division {{division.toUpperCase()}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="margin-bottom: 40px">
+                <span>Select one or multiple role(s)</span>
+            </div>
+            <div class="flex" style="margin-left: 10px" formArrayName="roles" *ngFor="let role of form.controls.roles.controls; let i = index">
+                <div class="div-checkbox flex">
+                    <input type="checkbox" id="role-{{roles[i].name}}" [formControlName]="i">
+                    <span class="checkmark" onclick="this.parentNode.childNodes[1].click()"></span>
+                    <label class="vertical-center" for="role-{{roles[i].name}}">{{roles[i].name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="vertical-center">
+            <div class="flex">
+                <input type="submit" value="Get taglist">
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="result-div" [innerHTML]="tagList"></div>

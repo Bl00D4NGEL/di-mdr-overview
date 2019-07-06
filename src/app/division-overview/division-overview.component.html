@@ -1,0 +1,164 @@
+
+<div class="overview-div">
+    <div class="name-div flex">
+      <img class="name-image" [src]="getDivisionImage(division.divisionName)">
+        <h1 class="vertical-center">Division {{division.shortDivisionName().toUpperCase()}} ({{division.getTotalMemberCount()}})</h1>
+        <div class="pw-hide" *ngIf="division.isSeedDivision" style="padding-left: 5px;">
+          <!-- <seed-division class="seed-division"></seed-division> -->
+        </div>
+        <div class="pw-hide" *ngIf="division.isSuperDivision" style="padding-left: 5px;">
+          <h1 class="super-division" title="Super division"></h1>
+        </div>
+    </div>
+    <div>
+      <div class="search-and-compliance flex">
+        <div>
+          <div class="search-div flex flex-wrap">
+            <span class="bolder">Search for member</span>
+            <input ng-model="search.name">
+          </div>
+          <div class="display-div flex flex-wrap">
+            <div>
+              <span style="margin-bottom: 15px; font-weight: bold" class="full-width">Rep / Post display</span>
+              <br>
+              <input id="orderBy-current" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="current">
+              <label for="orderBy-current">Total</label><br>
+              <input id="orderBy-this" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="thisMonth">
+              <label for="orderBy-this">Current month</label><br>
+              <input id="orderBy-last" type="radio" name="sort.orderBy" ng-model="sort_orderBy" value="lastMonth">
+              <label for="orderBy-last">Last month</label><br>
+            </div>
+          </div>
+        </div>
+        <div class="compliance-div" *ngIf="!division.isCompliant">
+          <h1 style="margin-top: 0; font-weight: bold">Division not compliant!</h1>
+          <!--
+          <div ng-repeat="reason in division.ncData.reasons" class="flex nc-div">
+            <div *ngIf="reason.isCausingUnit" class="flex full-width">
+              <span title="Is causing non-compliance" class="box error-box vertical-center" style="margin-top: 10px; margin-left: 3px;">!</span>
+              <span style="padding-left: 10px; margin-top: 10px" class="vertical-center">
+                <span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
+              </span>
+            </div>
+            <div *ngIf="!reason.isCausingUnit" class="flex full-width">
+              <span class="box warning-box vertical-center" style="margin-left: 3px">!</span>
+              <span style="padding-left: 10px" class="vertical-center">
+                <span>{{reason.reason}} <span class="tw-hide dw-hide">(Drain: {{reason.drainRate}})</span></span>
+              </span>
+            </div>
+          </div>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="member-table">
+    <tr>
+      <th class="pw-hide sdw-hide tw-hide" style="padding-left: 5px">
+        Role
+        <span class="sortorder"></span>
+      </th>
+      <th>
+        Name
+        <span class="sortorder"></span>
+      </th>
+      <th>
+        <span>Rep</span><span class="pw-hide sdw-hide">utation</span>
+        <span class="sortorder"></span>
+      </th>
+      <th>
+        Posts
+        <span class="sortorder"></span>
+      </th>
+      <th class="pw-hide">
+        Roster
+        <span class="sortorder"></span>
+      </th>
+      <th class="pw-hide sdw-hide">
+        Ts Linked
+        <span class="sortorder"></span>
+      </th>
+      <th class="pw-hide sdw-hide tw-hide dw-hide">
+        Ts Last Active
+        <span class="sortorder"></span>
+      </th>
+      <th class="pw-hide sdw-hide tw-hide dw-hide">
+        Forum Last Active
+        <span class="sortorder"></span>
+      </th>
+    </tr>
+    <tr *ngFor="let member of members">
+      <td class="pw-hide sdw-hide tw-hide">
+        <div style="display: flex">
+          <div style="padding-left: 10px; width: 25px">
+            <img *ngIf="getRoleImage(member) !== undefined" [src]="getRoleImage(member)">
+            <span *ngIf="member.roleCharacter() !== undefined && member.roleImageName() === undefined">
+              {{member.roleCharacter()}}
+            </span>
+          </div>
+          <div style="margin-top: 1.5px;">
+            <span style="padding-left: 10px;">{{member.getFormattedName()}}</span>
+          </div>
+        </div>
+      </td>
+      <td>[{{member.country}}] <a href="https://di.community/profile/{{member.id}}-{{member.name}}/">{{member.name}}</a></td>
+      <td>
+        <span>{{member.repData.total}}</span>
+        <!--
+        <span>{{member.repData.thisMonth}}</span>
+        <span>{{member.repData.lastMonth}}</span>
+        -->
+      </td>
+      <td>
+        <span>{{member.postData.total}}</span>
+        <!--
+        <span>{{member.postData.thisMonth}}</span>
+        <span>{{member.postData.lastMonth}}</span>
+        -->
+      </td>
+      <td class="pw-hide">{{member.formattedRosterName()}}</td>
+      <td class="pw-hide sdw-hide">
+        <span *ngIf="member.tsData.isTsLinked" class="checked"></span>
+        <span *ngIf="!member.tsData.isTsLinked" class="not-checked"></span>
+      </td>
+      <td class="pw-hide sdw-hide tw-hide dw-hide">
+        <div style="display: flex">
+          <!--
+          <div *ngIf="member.tsData.lastActive > memberObj.maxTsInactivity">
+            <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="box small-error-box vertical-center">!</span>
+          </div>
+          <div *ngIf="member.tsData.lastActive === member.maxTsInactivity">
+            <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="box small-warning-box vertical-center">!</span>
+          </div>
+          <div *ngIf="member.tsData.lastActive < member.maxTsInactivity">
+            <span title="Inactive for {{member.tsData.lastActiveInDays}} days" class="box small-ok-box vertical-center">&#x2713;</span>
+          </div>
+          -->
+          <div *ngIf="member.tsData.isTsLinked && member.tsData.lastActive > 0" style="margin-left: 10px">
+            <span *ngIf="member.tsData.isOnline">Now</span>
+            <span *ngIf="!member.tsData.isOnline">{{member.getTeamspeakLastActiveAsDate().toLocaleDateString()}} {{member.getTeamspeakLastActiveAsDate().toLocaleTimeString()}}</span>
+          </div>
+          <div *ngIf="!member.tsData.isTsLinked || member.tsData.lastActive === 0" style="display: flex">
+            <span class="small-error-box vertical-center">!</span>
+            <span style="margin-left: 10px">Never</span>
+          </div>
+        </div>
+      </td>
+      <td class="pw-hide sdw-hide tw-hide dw-hide">
+        <div style="display: flex">
+          <!--
+          <div *ngIf="member.lastActivityInDays > member.maxForumInactivity">
+            <span title="Inactive for {{member.lastActivityInDays}} days" class="box small-error-box vertical-center">!</span>
+          </div>
+          <div *ngIf="member.lastActivityInDays === member.maxForumInactivity">
+            <span title="Inactive for {{member.lastActivityInDays}} days" class="box small-warning-box vertical-center">!</span>
+          </div>
+          <div *ngIf="member.lastActivityInDays < member.maxForumInactivity">
+            <span title="Inactive for {{member.lastActivityInDays}} days" class="box small-ok-box vertical-center">&#x2713;</span>
+          </div>
+          -->
+          <span style="margin-left: 10px;">{{member.getForumLastActiveAsDate().toLocaleDateString()}} {{member.getForumLastActiveAsDate().toLocaleTimeString()}}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
