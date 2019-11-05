@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ConfigService {
-  mdrUrl = 'http://localhost:1338/';
+  mdrUrl = 'https://mdr.d-peters.com:2048/';
   constructor(private http: HttpClient) { }
 
   getMdr(): Observable<any> {
