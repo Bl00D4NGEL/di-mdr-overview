@@ -1,4 +1,4 @@
 node_modules
-.dist
-.idea
-app/.sass-cache
+dist/
+.idea/
+app/.sass-cache/
