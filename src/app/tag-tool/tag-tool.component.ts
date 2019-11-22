@@ -21,6 +21,8 @@ export class TagToolComponent implements OnInit {
       {id: 'DC', name: 'Commander'}
   ];
   tagList: string;
+  redirectTime: number;
+  newToolLink: string;
 
   constructor(private formBuilder: FormBuilder, private cs: ConfigService) {
     this.form = this.formBuilder.group({
@@ -28,13 +30,27 @@ export class TagToolComponent implements OnInit {
       divisions: ['']
     });
 
+    this.redirectTime = 5;
+    this.newToolLink = 'https://di-tools.d-peters.com';
+
     this.addRoleCheckboxes();
   }
 
   ngOnInit() {
+    setInterval(() => {
+      if (this.redirectTime === 0) {
+        window.location.href = this.newToolLink;
+      }
+      if (this.redirectTime > 0) {
+        this.redirectTime--;
+      }
+    }, 1000);
+    /*
     this.cs.getDivisionNames().subscribe((data: Array<string>) => {
+
       this.divisions = this.divisions.concat(data);
     });
+    */
   }
 
   private addRoleCheckboxes() {
